@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-configmap
+  namespace: vechtron-webapp
+data:
+  NEXT_PUBLIC_ENV: "production"
+  NEXT_PUBLIC_BACKEND_API: "api.vechtron.com"
+  NEXT_PUBLIC_CHAT_API: "ai.vechtron.com"
