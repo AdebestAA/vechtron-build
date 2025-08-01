@@ -1,21 +1,30 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { ArrowLeft, ArrowRight, Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Light } from '../utils/Icons'
+import useChangeTheme from '@/lib/CustomHooks/useChangeThemeMode'
+import useChangeThemeMode from '@/lib/CustomHooks/useChangeThemeMode'
 
 
 const styleForInput = "border-b-border border-b-1 outline-none"
 const page = () => {
+    const {toggleTheme,theme} = useChangeThemeMode()
+
+    useEffect(()=>{
+console.log(theme);
+
+    },[theme])
   return (
-    <div className='flex '>
+    <div className='md:flex max-h-screen'>
         {/* first section */}
-        <section className="md:w-[60%] h-full bg-primary p-10 flex flex-col justify-between"
+        <section className="md:w-[60%] hidden h-full bg-primary p-10 md:flex flex-col justify-between text-[#FFFFFF]"
         style={{
             backgroundImage:"url('/vechtron-accelerator.svg')",
             backgroundSize: 'cover',
@@ -32,7 +41,7 @@ const page = () => {
     </div>
  </article>
  {/* second article */}
- <article className='text-background flex'>
+ <article className=' flex '>
     
  <aside className='w-[75%]'>
  <h1 className='font-semibold text-[45px]'>
@@ -45,10 +54,10 @@ const page = () => {
     </h4>
  </aside>
  <aside className='w-[25%] flex items-end justify-end gap-x-2'>
-        <Button className='bg-background text-primary'>
+        <Button className='bg-[#FFFFFF] text-[#3F2A5C]'>
             <ArrowLeft/>
         </Button>
-        <Button className='bg-background text-primary'>
+        <Button className='bg-[#FFFFFF] text-[#3F2A5C]'>
             <ArrowRight/>
         </Button>
     </aside>
@@ -57,16 +66,16 @@ const page = () => {
 </section>
 
 {/* Second section */}
-<section  className="md:w-[40%] py-8 px-16 max-h-screen" >
+<section  className="md:w-[40%]  py-8 md:px-20 px-6 max-h-screen" >
 
     <div className='flex flex-col justify-evenly '>
     {/* Header */}
 <div className='flex items-center justify-between '>
 <CardTitle className=' text-xl'>Sign Up</CardTitle>
-<Button  variant={"ghost"}><Sun/></Button>
+<Button className='cursor-pointer'  variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun/> : <Moon/>}</Button>
 </div>
 
-<div className='flex flex-col gap-y-4 my-4'>
+<div className='flex flex-col gap-y-3 my-4'>
     <div className='flex'>
     <span>Have and Account?</span>
     <Link href={"/"} className='font-semibold'>Login</Link>
@@ -89,7 +98,7 @@ Sign Up with Google
     </div>
 </div>
     </div>
-<form action="" className='flex flex-col justify-evenly  gap-y-6'>
+<form action="" className='flex flex-col justify-evenly  gap-y-4'>
     <div className='flex justify-between'>
         {/* first name */}
         <aside className='flex flex-col w-[45%]'>
@@ -134,7 +143,7 @@ Sign Up with Google
         </aside>
     </div>
 
-    <Button className='w-full font-medium text-lg'  size={"lg"}>
+    <Button className='w-full font-medium text-lg text-[#FFFFFF]'  size={"lg"}>
 
 Sign Up 
         </Button>
