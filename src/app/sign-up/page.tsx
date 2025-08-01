@@ -22,9 +22,9 @@ console.log(theme);
 
     },[theme])
   return (
-    <div className='md:flex max-h-screen'>
+    <div className='lg:flex max-h-screen'>
         {/* first section */}
-        <section className="md:w-[60%] hidden h-full bg-primary p-10 md:flex flex-col justify-between text-[#FFFFFF]"
+        <section className="lg:w-[60%] hidden h-full bg-primary p-10 lg:flex flex-col justify-between text-[#FFFFFF]"
         style={{
             backgroundImage:"url('/vechtron-accelerator.svg')",
             backgroundSize: 'cover',
@@ -66,7 +66,7 @@ console.log(theme);
 </section>
 
 {/* Second section */}
-<section  className="md:w-[40%]  py-8 md:px-20 px-6 max-h-screen" >
+<section  className="lg:w-[40%]  py-8 lg:px-20 px-6 max-h-screen" >
 
     <div className='flex flex-col justify-evenly '>
     {/* Header */}
