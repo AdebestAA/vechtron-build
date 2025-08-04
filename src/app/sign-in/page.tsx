@@ -18,28 +18,24 @@ import Spinner from '@/utils/Spinner'
 const styleForInput = "border-b-border border-b-1 outline-none "
 
 interface typeFormState<S,N>  {
-firstName:S,
-username:S,
-lastName:S,
+
 email:S,
 password:S,
-confirmPassword:S
+
 }
 
 
+
 const postData = async(formState:typeFormState<string,number>)=>{
-const res = await fetch("https://api-staging.vechtron.com/auth/api/v1/auth/account/signup",{
+const res = await fetch("https://api-staging.vechtron.com/auth/api/v1/auth/account/login",{
     method:'POST',
     headers:{
 "Content-Type":"application/json"
     },
     body:JSON.stringify({
-        first_name:formState.firstName,
-        last_name:formState.lastName,
-        username:formState.username,
         email:formState.email,
         password:formState.password,
-        confirm_password:formState.confirmPassword
+       
     })
 })
 if (!res.ok) {
@@ -52,16 +48,13 @@ return response
 }
 const page = () => {
     const [formState,setFormState] = useState<typeFormState<string,number>>({
-        firstName:"",
-        lastName:"",
-        username:"",
+     
         email:"",
         password:"",
-        confirmPassword:""
         })
         const [show,setShow] = useState({
             password:false,
-            confirmPassword:false
+           
         })
     const {toggleTheme,theme} = useChangeThemeMode()
     const mutation = useMutation({
@@ -69,7 +62,7 @@ const page = () => {
         onSuccess:(data)=>{
 console.log(data);
 if (data.status == "success") {
-    alert("successfully added user, check console for response")
+    alert("successfully logged in, check console for response")
 } 
 else{
     alert("something went wrong, check console for error")
@@ -99,7 +92,7 @@ console.log(theme);
   return (
     <div className='lg:flex max-h-screen'>
         {/* first section */}
-        <section className="lg:w-[60%] hidden h-full h-screen bg-primary p-10 lg:flex flex-col justify-between text-[#FFFFFF]"
+        <section className="lg:w-[60%] hidden h-full min-h-screen bg-primary p-10 lg:flex flex-col justify-between text-[#FFFFFF]"
         style={{
             backgroundImage:"url('/vechtron-accelerator.svg')",
             backgroundSize: 'cover',
@@ -146,20 +139,20 @@ console.log(theme);
     <div className='flex flex-col justify-evenly '>
     {/* Header */}
 <div className='flex items-center justify-between '>
-<CardTitle className=' text-xl'>Sign Up</CardTitle>
+<CardTitle className=' text-xl'>Log In</CardTitle>
 <Button className='cursor-pointer'  variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun/> : <Moon/>}</Button>
 </div>
 
 <div className='flex flex-col gap-y-3 my-4'>
     <div className='flex gap-x-2'>
-    <span>Have an Acount?</span>
-    <Link href={"/sign-in"} className='font-semibold'>Login</Link>
+    <span>Do not have an account?  </span> 
+    <Link href={"/sign-up"} className='font-semibold'>Sign UP</Link>
     </div>
     {/* Sign up with google */}
     <article>
-        <Button className='w-full font-normal py-6 ' variant={"outline"} size={"lg"}>
+        <Button className='w-full font-normal py-6 cursor-pointer' variant={"outline"} size={"lg"}>
 <img src={"./google.svg"} />
-Sign Up with Google
+Login with Google
         </Button>
     </article>
 
@@ -174,41 +167,6 @@ Sign Up with Google
 </div>
     </div>
 <form action="" onSubmit={handleSubmit} className='flex flex-col justify-evenly  gap-y-2'>
-    <div className='flex justify-between'>
-        {/* first name */}
-        <aside className='flex flex-col w-[45%]'>
-<label htmlFor="">First Name</label>
-      <input 
-      onChange={(e)=> {
-        setFormState({...formState,[e.target.name]:e.target.value.trim()})
-      }}
-      className={styleForInput}
-      name="firstName"
-      type="text" />
-        </aside>
-      {/* last name */}
-        <aside className='flex flex-col w-[45%]'>
-<label htmlFor="" >Last Name</label>
-        <input 
-        className={styleForInput}
-        onChange={(e)=> {
-            setFormState({...formState,[e.target.name]:e.target.value.trim()})
-          }}
-         name="lastName"
-        type="text" />
-        </aside>
-    </div>
-{/* username */}
-    <div className='flex flex-col'>
-    <label htmlFor="" >Username</label>
-        <input 
-        className={styleForInput}
-        onChange={(e)=> {
-            setFormState({...formState,[e.target.name]:e.target.value.trim()})
-          }}
-         name="username"
-        type="text" /> 
-    </div>
 {/* email */}
     <div className='flex flex-col'>
     <label htmlFor="" >Email</label>
@@ -248,37 +206,17 @@ else{
         }} className='absolute right-[3%] top-[00%]'>{show.password ? <FaEyeSlash/> : <FaEye/>}</button>
         </aside>
     </div>
-{/* confirm password */}
-<div className='flex flex-col'>
-    <label htmlFor="" >Confirm Password</label>
-    <aside className='relative w-full'>
-        <input 
-        className={`${styleForInput} w-full`}
-        onChange={(e)=> {
-            setFormState({...formState,[e.target.name]:e.target.value.trim()})
-          }}
-          name="confirmPassword"
-        type={show.confirmPassword ? "text" : "password"} /> 
-        <button
-        type='button'
-               onClick={()=> {
-                if (show.confirmPassword) {
-                    setShow({...show,confirmPassword:false})
-                }
-                else{
-                    setShow({...show,confirmPassword:true})
-                
-                }
-                
-                        }}
-        className='absolute right-[3%] top-[0%]'>{show.confirmPassword ?  <FaEyeSlash/> : <FaEye/>}</button>
-        </aside>
-    </div>
 
-    <Button type='submit' className='w-full font-medium text-lg text-[#FFFFFF] cursor-pointer'  size={"lg"}>
-{mutation.isPending ? <Spinner/> : "Sign Up"}
+
+<div>
+<Button type='submit' className=' cursor-pointer w-full font-medium text-lg text-[#FFFFFF]'  size={"lg"}>
+{mutation.isPending ? <Spinner/> : "Sign In"}
 {/* <Spinner/> */}
         </Button>
+</div>
+<div className='flex justify-end '>
+<Link href={"/"} className='text-primary text-sm'>forgot password?</Link>
+</div>    
 </form>
 
 </section>
