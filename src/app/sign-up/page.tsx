@@ -5,22 +5,97 @@ import { Input } from '@/components/ui/input'
 import { ArrowLeft, ArrowRight, Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Light } from '../utils/Icons'
 import useChangeTheme from '@/lib/CustomHooks/useChangeThemeMode'
 import useChangeThemeMode from '@/lib/CustomHooks/useChangeThemeMode'
+import { useMutation } from '@tanstack/react-query'
+import Spinner from '@/utils/Spinner'
 
 
-const styleForInput = "border-b-border border-b-1 outline-none"
+const styleForInput = "border-b-border border-b-1 outline-none "
+
+interface typeFormState<S,N>  {
+firstName:S,
+username:S,
+lastName:S,
+email:S,
+password:S,
+confirmPassword:S
+}
+
+
+const postData = async(formState:typeFormState<string,number>)=>{
+const res = await fetch("https://api-staging.vechtron.com/auth/api/v1/auth/account/signup",{
+    method:'POST',
+    headers:{
+"Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+        first_name:formState.firstName,
+        last_name:formState.lastName,
+        username:formState.username,
+        email:formState.email,
+        password:formState.password,
+        confirm_password:formState.confirmPassword
+    })
+})
+if (!res.ok) {
+    console.log("error");
+    
+}
+const response = await res.json()
+return response
+
+}
 const page = () => {
+    const [formState,setFormState] = useState<typeFormState<string,number>>({
+        firstName:"",
+        lastName:"",
+        username:"",
+        email:"",
+        password:"",
+        confirmPassword:""
+        })
+        const [show,setShow] = useState({
+            password:false,
+            confirmPassword:false
+        })
     const {toggleTheme,theme} = useChangeThemeMode()
+    const mutation = useMutation({
+        mutationFn:postData,
+        onSuccess:(data)=>{
+console.log(data);
+if (data.status == "success") {
+    alert("successfully added user, check console for response")
+} 
+else{
+    alert("something went wrong, check console for error")
+}
+
+},
+onError:(error)=> {
+    console.log(error);
+    alert("an error occured check console for error info")
+            
+        },
+    })
+
+ 
 
     useEffect(()=>{
 console.log(theme);
 
     },[theme])
+
+    const handleSubmit = (e:React.SyntheticEvent)=>{
+        e.preventDefault()
+        console.log(formState);
+        mutation.mutate(formState)
+        
+    }
   return (
     <div className='lg:flex max-h-screen'>
         {/* first section */}
@@ -77,7 +152,7 @@ console.log(theme);
 
 <div className='flex flex-col gap-y-3 my-4'>
     <div className='flex'>
-    <span>Have and Account?</span>
+    <span>Have an Acount?</span>
     <Link href={"/"} className='font-semibold'>Login</Link>
     </div>
     {/* Sign up with google */}
@@ -89,7 +164,7 @@ Sign Up with Google
     </article>
 
     {/* Or */}
-    <div className='flex items-center justify-between my-6'>
+    <div className='flex items-center justify-between my-4'>
         <hr className='w-[45%] h-[5px]'  />
         <span >or</span>
         
@@ -98,13 +173,17 @@ Sign Up with Google
     </div>
 </div>
     </div>
-<form action="" className='flex flex-col justify-evenly  gap-y-4'>
+<form action="" onSubmit={handleSubmit} className='flex flex-col justify-evenly  gap-y-2'>
     <div className='flex justify-between'>
         {/* first name */}
         <aside className='flex flex-col w-[45%]'>
 <label htmlFor="">First Name</label>
       <input 
+      onChange={(e)=> {
+        setFormState({...formState,[e.target.name]:e.target.value.trim()})
+      }}
       className={styleForInput}
+      name="firstName"
       type="text" />
         </aside>
       {/* last name */}
@@ -112,14 +191,33 @@ Sign Up with Google
 <label htmlFor="" >Last Name</label>
         <input 
         className={styleForInput}
+        onChange={(e)=> {
+            setFormState({...formState,[e.target.name]:e.target.value.trim()})
+          }}
+         name="lastName"
         type="text" />
         </aside>
+    </div>
+{/* email */}
+    <div className='flex flex-col'>
+    <label htmlFor="" >Username</label>
+        <input 
+        className={styleForInput}
+        onChange={(e)=> {
+            setFormState({...formState,[e.target.name]:e.target.value.trim()})
+          }}
+         name="username"
+        type="text" /> 
     </div>
 {/* email */}
     <div className='flex flex-col'>
     <label htmlFor="" >Email</label>
         <input 
         className={styleForInput}
+        onChange={(e)=> {
+            setFormState({...formState,[e.target.name]:e.target.value.trim()})
+          }}
+         name="email"
         type="text" /> 
     </div>
 {/* password */}
@@ -128,8 +226,26 @@ Sign Up with Google
     <aside className='relative w-full'>
         <input 
         className={`${styleForInput} w-full`}
-        type="text" /> 
-        <button className='absolute right-[3%] top-[00%]'><FaEye/></button>
+        onChange={(e)=> {
+            setFormState({...formState,[e.target.name]:e.target.value.trim()})
+          }}
+         name="password"
+         type={show.password ? "text" : "password"}
+        
+        /> 
+        <button
+        
+    type='button'
+        onClick={()=> {
+if (show.password) {
+    setShow({...show,password:false})
+}
+else{
+    setShow({...show,password:true})
+
+}
+
+        }} className='absolute right-[3%] top-[00%]'>{show.password ? <FaEyeSlash/> : <FaEye/>}</button>
         </aside>
     </div>
 {/* confirm password */}
@@ -138,14 +254,30 @@ Sign Up with Google
     <aside className='relative w-full'>
         <input 
         className={`${styleForInput} w-full`}
-        type="text" /> 
-        <button className='absolute right-[3%] top-[0%]'><FaEye/></button>
+        onChange={(e)=> {
+            setFormState({...formState,[e.target.name]:e.target.value.trim()})
+          }}
+          name="confirmPassword"
+        type={show.confirmPassword ? "text" : "password"} /> 
+        <button
+        type='button'
+               onClick={()=> {
+                if (show.confirmPassword) {
+                    setShow({...show,confirmPassword:false})
+                }
+                else{
+                    setShow({...show,confirmPassword:true})
+                
+                }
+                
+                        }}
+        className='absolute right-[3%] top-[0%]'>{show.confirmPassword ?  <FaEyeSlash/> : <FaEye/>}</button>
         </aside>
     </div>
 
-    <Button className='w-full font-medium text-lg text-[#FFFFFF]'  size={"lg"}>
-
-Sign Up 
+    <Button type='submit' className='w-full font-medium text-lg text-[#FFFFFF]'  size={"lg"}>
+{mutation.isPending ? <Spinner/> : "Sign Up"}
+{/* <Spinner/> */}
         </Button>
 </form>
 
