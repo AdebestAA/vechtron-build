@@ -46,7 +46,11 @@
 
 
 @theme{
-
+/* colors */
+--color-primary: var(--primary)  ;
+--color-background:var(--background); 
+--color-stroke:#999999; 
+--color-light-one:#F7F7F71A; 
 
   /* breakpoint */
   --breakpoint-xxs: 330px;
@@ -64,7 +68,11 @@
   --radius: 0.625rem;
   /* my color */
   --primary: #3F2A5C  ;
-  --background:#FFFFFF;
+  --background:#FFFFFF; 
+  --text-color-one: #030712;
+  --stroke:#999999; 
+  --light-one:#F7F7F71A; 
+
 
   /* generated */
   --foreground: oklch(0.13 0.028 261.692);
@@ -98,10 +106,15 @@
   --sidebar-ring: oklch(0.707 0.022 261.325);
 }
 
+
 .dark {
   /* my colors */
   --background: #030712;
+  --text-color-one: #FFFFFF;
   --primary: #3F2A5C;
+  --stroke:#999999; 
+  --light-one:#F7F7F71A; 
+
   /* gen */
   --foreground: oklch(0.985 0.002 247.839);
   --card: oklch(0.21 0.034 264.665);
