@@ -1,11 +1,15 @@
 "use client"
-import { ArrowLeft, ArrowRight, ChevronDown, Globe, Menu, Mic, Moon, Paperclip, Pencil, Plus, Radio, Sun } from 'lucide-react'
-import React from 'react'
+import { ArrowLeft, ArrowRight, ChevronDown, Globe, Menu, Mic, Moon, Paperclip, Pencil, Plus, Radio, Sun, X } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import useChangeThemeMode from '@/lib/CustomHooks/useChangeThemeMode'
 import Image from 'next/image'
 
 import { Textarea } from "@/components/ui/textarea"
+import gsap from 'gsap'
+import { useDispatch, useSelector } from 'react-redux'
+import { dispatchType, RootStoreType } from '@/app/store'
+import { closeMobileSidebar, openMobileSidebar } from '@/app/store/slices/mobileSidebarSlice'
 const health = [
   {
     id:1,
@@ -53,13 +57,57 @@ const chatAiData = [
 ]
 const Main = () => {
     const {toggleTheme,theme} = useChangeThemeMode()
+const dispatch = useDispatch<dispatchType>()
+    const mobileSidebarState = useSelector((store:RootStoreType)=>{
+
+      return store.mobileSidebarSlice
+    })
+  
+
+    useEffect(()=>{
+      if (mobileSidebarState) {
+        gsap.to(document.querySelector(".mobile-sidebar"),{
+          left:"0%",
+          display:"block",
+          duration:0.5
+        
+        })
+      }
+      else{
+        gsap.to(document.querySelector(".mobile-sidebar"),{
+          left:"-50%",
+          display:"none",
+          duration:0.5
+     
+      })
+      
+      }
+    },[mobileSidebarState])
   return (
     <div className='md:min-w-[80%] w-full md:px-8 px-4 my-4 '>
       {/* header */}
         <header className='flex justify-between '>
             <h1 className='font-semibold'>Vehicle</h1>
             <>
-            <Button className='md:hidden' variant={"ghost"}><Menu/></Button>
+            {/* btn for mobile */}
+            <div className='md:hidden block'>
+            <Button className='cursor-pointer'  variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun/> : <Moon/>}</Button>
+            <Button 
+            onClick={()=>{
+             
+            if (mobileSidebarState) {
+              dispatch(closeMobileSidebar())
+            }
+            else{
+              
+              dispatch(openMobileSidebar())
+            }
+            
+            
+              }}
+             
+              className='md:hidden cursor-pointer' variant={"ghost"}>{ mobileSidebarState ?<X/>: <Menu/>}</Button>
+              </div>
             <div className='md:block hidden'>
             <Button className='cursor-pointer'  variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun/> : <Moon/>}</Button>
             {Array(4).fill("").map((item,index)=>{
@@ -145,6 +193,10 @@ const Main = () => {
 </section>
 
 
+     </div>
+
+     <div>
+      lets see
      </div>
     </div>
   )
