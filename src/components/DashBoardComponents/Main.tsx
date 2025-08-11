@@ -10,6 +10,9 @@ import gsap from 'gsap'
 import { useDispatch, useSelector } from 'react-redux'
 import { dispatchType, RootStoreType } from '@/app/store'
 import { closeMobileSidebar, openMobileSidebar } from '@/app/store/slices/mobileSidebarSlice'
+import { SidebarTrigger } from '../ui/sidebar'
+import OverviewComponent from './OverviewComponent'
+import Maintenance from './Maintenance'
 const health = [
   {
     id:1,
@@ -57,6 +60,7 @@ const chatAiData = [
 ]
 const Main = () => {
     const {toggleTheme,theme} = useChangeThemeMode()
+    const [currBtn,setCurrBtn] = useState("overview")
 const dispatch = useDispatch<dispatchType>()
     const mobileSidebarState = useSelector((store:RootStoreType)=>{
 
@@ -84,15 +88,16 @@ const dispatch = useDispatch<dispatchType>()
       }
     },[mobileSidebarState])
   return (
-    <div className='md:min-w-[80%] w-full md:px-8 px-4 my-4 '>
+    <div className='lg:min-w-[80%] w-full lg:px-8 px-4 my-4 '>
       {/* header */}
         <header className='flex justify-between '>
             <h1 className='font-semibold'>Vehicle</h1>
             <>
             {/* btn for mobile */}
-            <div className='md:hidden block'>
+            <div className='lg:hidden block'>
             <Button className='cursor-pointer'  variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun/> : <Moon/>}</Button>
-            <Button 
+            <SidebarTrigger className="-ml-1" />
+            {/* <Button 
             onClick={()=>{
              
             if (mobileSidebarState) {
@@ -106,9 +111,9 @@ const dispatch = useDispatch<dispatchType>()
             
               }}
              
-              className='md:hidden cursor-pointer' variant={"ghost"}>{ mobileSidebarState ?<X/>: <Menu/>}</Button>
+              className='md:hidden cursor-pointer' variant={"ghost"}>{ mobileSidebarState ?<X/>: <Menu/>}</Button> */}
               </div>
-            <div className='md:block hidden'>
+            <div className='lg:block hidden'>
             <Button className='cursor-pointer'  variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun/> : <Moon/>}</Button>
             {Array(4).fill("").map((item,index)=>{
 
@@ -131,31 +136,31 @@ const dispatch = useDispatch<dispatchType>()
           </div>
           {/* add vehivel */}
           <>
-          <Button className='text-[var(--text-color-one)] md:hidden'><Plus/></Button>
-          <Button className='text-[var(--text-color-one)] md:inline hidden'>Add new Vehicle</Button>
+          <Button className='text-[var(--text-color-one)] lg:hidden'><Plus/></Button>
+          <Button className='text-[var(--text-color-one)] lg:inline hidden'>Add new Vehicle</Button>
           </>
         </div>
 
         {/*  */}
-     <div className='flex flex-col md:flex-row gap-y-4 md:gap-x-6'>
+     <div className='flex flex-col lg:flex-row gap-y-4 lg:gap-x-6'>
   {/* car image section */}
-<section className='md:w-[70%] flex flex-col gap-y-4'>
-  <div className='relative w-full h-[250px] md:min-h-[350px]'>
+<section className='lg:w-[70%] flex flex-col gap-y-4'>
+  <div className='relative w-full h-[250px] lg:min-h-[350px]'>
   <Image alt='car' src={"/car.svg"} fill  className='absolute w-full h-full object-cover rounded-lg'/>
   </div>
   {/* health */}
   <div className='flex flex-wrap bg-[var(--light-one)] rounded-lg py-4'>
 {health.map((item,index)=>{
 
-  return <aside className={`flex flex-col w-[25%]  items-center   font-light  ${index == 0 ? "" : "border-l border-l-[var(--stroke)]"}`} >
-    <span className='font-semibold md:text-[1.1rem]'>{item.percent}</span>
+  return <aside key={index + 1} className={`flex flex-col w-[25%]  items-center   font-light  ${index == 0 ? "" : "border-l border-l-[var(--stroke)]"}`} >
+    <span className='font-semibold lg:text-[1.1rem]'>{item.percent}</span>
     <span className='text-[0.7rem]'>{item.value}</span>
   </aside>
 })}
   </div>
 </section>
 {/* Chat section */}
-<section className='bg-[var(--light-one)] p-4 rounded-lg md:w-[30%] flex flex-col justify-between'>
+<section className='bg-[var(--light-one)] p-4 rounded-lg lg:w-[30%] flex flex-col justify-between'>
   {/* first section */}
   <div>
 <h1 className='font-semibold text-lg'>Chat AI</h1>
@@ -178,7 +183,7 @@ const dispatch = useDispatch<dispatchType>()
       background:"transparent",
       resize:"none"
     }}
-    value={"Lorem ipsum dolor sit amet consecte tur Amet velit amet "}
+    defaultValue={"Lorem ipsum dolor sit amet consecte tur Amet velit amet "}
     />
    <footer className='flex justify-between'>
     <section className='flex justify-between gap-x-3 items-center'>
@@ -195,8 +200,24 @@ const dispatch = useDispatch<dispatchType>()
 
      </div>
 
-     <div>
-      lets see
+{/* alert, overview, Maintanance */}
+
+     <div className='my-6'>
+      <header className=''>
+        <Button onClick={(e:React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+          variant={currBtn == "overview" ? "default" : "ghost"}
+          >Overview</Button>
+        <Button
+        onClick={(e:React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+        variant={currBtn == "alert" ? "default" : "ghost"}>Alert</Button>
+        <Button onClick={(e:React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+          variant={currBtn == "maintanance" ? "default" : "ghost"}
+          >Maintanance</Button>
+      </header>
+
+      <>
+      {currBtn == "overview" ? <OverviewComponent/> :currBtn == "maintanance" ? <Maintenance/> :""}
+      </>
      </div>
     </div>
   )

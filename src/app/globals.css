@@ -43,8 +43,6 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-
-
 @theme{
 /* colors */
 --color-primary: var(--primary)  ;
@@ -72,7 +70,7 @@
   --text-color-one: #030712;
   --stroke:#999999; 
   --light-one:#F7F7F71A; 
-
+  --overview-container:"#DADADA"
 
   /* generated */
   --foreground: oklch(0.13 0.028 261.692);
@@ -106,7 +104,6 @@
   --sidebar-ring: oklch(0.707 0.022 261.325);
 }
 
-
 .dark {
   /* my colors */
   --background: #030712;
@@ -114,6 +111,8 @@
   --primary: #3F2A5C;
   --stroke:#999999; 
   --light-one:#F7F7F71A; 
+    --overview-container:#DADADA;
+  
 
   /* gen */
   --foreground: oklch(0.985 0.002 247.839);
@@ -155,8 +154,6 @@
     @apply bg-background text-foreground;
   }
 }
-
-
 
 .loader {
   width: 25px;

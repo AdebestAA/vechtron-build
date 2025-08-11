@@ -1,17 +1,27 @@
-import Main from '@/components/DashBoardComponents/Main'
-import MobileSidebar from '@/components/DashBoardComponents/MobileSidebar'
-import Sidebar from '@/components/DashBoardComponents/Sidebar'
-import React from 'react'
+import { AppSidebar } from "@/components/app-sidebar"
+import Main from "@/components/DashBoardComponents/Main"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
 
-const page = () => {
+export default function Page() {
   return (
-    <div className='flex  '>
-      <MobileSidebar/>
-<Sidebar/>
+    <SidebarProvider >
+      <AppSidebar />
+      <SidebarInset>
 <Main/>
-        
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }
-
-export default page
