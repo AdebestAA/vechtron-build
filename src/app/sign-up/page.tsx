@@ -9,10 +9,11 @@ import React, { useEffect, useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Light } from '../utils/Icons'
-import useChangeTheme from '@/lib/CustomHooks/UseChangeThemeMode'
-import useChangeThemeMode from '@/lib/CustomHooks/UseChangeThemeMode'
+
 import { useMutation } from '@tanstack/react-query'
 import Spinner from '@/utils/Spinner'
+import UseChangeThemeMode from '@/lib/CustomHooks/useChangeThemeMode'
+
 
 
 const styleForInput = "border-b-border border-b-1 outline-none "
@@ -63,7 +64,7 @@ const page = () => {
             password:false,
             confirmPassword:false
         })
-    const {toggleTheme,theme} = useChangeThemeMode()
+    const {toggleTheme,theme} = UseChangeThemeMode()
     const mutation = useMutation({
         mutationFn:postData,
         onSuccess:(data)=>{
