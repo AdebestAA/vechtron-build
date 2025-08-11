@@ -2,7 +2,7 @@
 import  { useEffect, useState } from 'react'
 
 type typeTheme = "light" | "dark"
-const useChangeThemeMode = () => {
+const UseChangeThemeMode = () => {
     const [theme, setTheme] = useState< typeTheme>('light');
 
     useEffect(() => {
@@ -27,4 +27,4 @@ const useChangeThemeMode = () => {
     return {toggleTheme,theme}
 }
 
-export default useChangeThemeMode
+export default UseChangeThemeMode

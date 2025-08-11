@@ -13,7 +13,7 @@ import { closeMobileSidebar, openMobileSidebar } from '@/app/store/slices/mobile
 import { SidebarTrigger } from '../ui/sidebar'
 import OverviewComponent from './OverviewComponent'
 import Maintenance from './Maintenance'
-import useChangeThemeMode from '@/hooks/UseChangeThemeMode'
+import UseChangeThemeMode from '@/hooks/UseChangeThemeMode'
 
 
 
@@ -63,7 +63,7 @@ const chatAiData = [
   },
 ]
 const Main = () => {
-    const {toggleTheme,theme} = useChangeThemeMode()
+    const {toggleTheme,theme} = UseChangeThemeMode()
     const [currBtn,setCurrBtn] = useState("overview")
 const dispatch = useDispatch<dispatchType>()
     const mobileSidebarState = useSelector((store:RootStoreType)=>{
