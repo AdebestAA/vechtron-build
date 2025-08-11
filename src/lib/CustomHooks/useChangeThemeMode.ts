@@ -1,8 +1,8 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 
 type typeTheme = "light" | "dark"
-const UseChangeThemeMode = () => {
+const useChangeThemeMode = () => {
     const [theme, setTheme] = useState< typeTheme>('light');
 
     useEffect(() => {
@@ -27,4 +27,4 @@ const UseChangeThemeMode = () => {
     return {toggleTheme,theme}
 }
 
-export default UseChangeThemeMode
+export default useChangeThemeMode
