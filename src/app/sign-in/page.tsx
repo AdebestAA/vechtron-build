@@ -9,8 +9,8 @@ import React, { useEffect, useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Light } from '../utils/Icons'
-import useChangeTheme from '@/lib/CustomHooks/useChangeThemeMode'
-import useChangeThemeMode from '@/lib/CustomHooks/useChangeThemeMode'
+import useChangeTheme from '@/lib/CustomHooks/UseChangeThemeMode'
+import useChangeThemeMode from '@/lib/CustomHooks/UseChangeThemeMode'
 import { useMutation } from '@tanstack/react-query'
 import Spinner from '@/utils/Spinner'
 

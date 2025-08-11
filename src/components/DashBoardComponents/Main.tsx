@@ -2,7 +2,7 @@
 import { ArrowLeft, ArrowRight, ChevronDown, Globe, Menu, Mic, Moon, Paperclip, Pencil, Plus, Radio, Sun, X } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
-import useChangeThemeMode from '@/lib/CustomHooks/useChangeThemeMode'
+
 import Image from 'next/image'
 
 import { Textarea } from "@/components/ui/textarea"
@@ -13,6 +13,9 @@ import { closeMobileSidebar, openMobileSidebar } from '@/app/store/slices/mobile
 import { SidebarTrigger } from '../ui/sidebar'
 import OverviewComponent from './OverviewComponent'
 import Maintenance from './Maintenance'
+import UseChangeThemeMode from '@/lib/CustomHooks/useChangeThemeMode'
+
+
 const health = [
   {
     id:1,
@@ -59,7 +62,7 @@ const chatAiData = [
   },
 ]
 const Main = () => {
-    const {toggleTheme,theme} = useChangeThemeMode()
+    const {toggleTheme,theme} = UseChangeThemeMode()
     const [currBtn,setCurrBtn] = useState("overview")
 const dispatch = useDispatch<dispatchType>()
     const mobileSidebarState = useSelector((store:RootStoreType)=>{
