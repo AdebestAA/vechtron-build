@@ -12,7 +12,7 @@ import { Light } from '../utils/Icons'
 
 import { useMutation } from '@tanstack/react-query'
 import Spinner from '@/utils/Spinner'
-import UseChangeThemeMode from '@/lib/CustomHooks/UseChangeThemeMode'
+import useChangeThemeMode from '@/lib/CustomHooks/UseChangeThemeMode'
 
 
 
@@ -64,7 +64,7 @@ const page = () => {
             password:false,
             confirmPassword:false
         })
-    const {toggleTheme,theme} = UseChangeThemeMode()
+    const {toggleTheme,theme} = useChangeThemeMode()
     const mutation = useMutation({
         mutationFn:postData,
         onSuccess:(data)=>{
