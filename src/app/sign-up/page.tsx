@@ -12,7 +12,7 @@ import { Light } from '../utils/Icons'
 
 import { useMutation } from '@tanstack/react-query'
 import Spinner from '@/utils/Spinner'
-import useChangeThemeMode from '@/lib/CustomHooks/UseChangeThemeMode'
+import useChangeThemeMode from '@/hooks/UseChangeThemeMode'
 
 
 

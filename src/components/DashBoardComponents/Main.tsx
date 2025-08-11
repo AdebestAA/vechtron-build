@@ -13,7 +13,8 @@ import { closeMobileSidebar, openMobileSidebar } from '@/app/store/slices/mobile
 import { SidebarTrigger } from '../ui/sidebar'
 import OverviewComponent from './OverviewComponent'
 import Maintenance from './Maintenance'
-import useChangeThemeMode from '@/lib/CustomHooks/UseChangeThemeMode'
+import useChangeThemeMode from '@/hooks/UseChangeThemeMode'
+
 
 
 const health = [

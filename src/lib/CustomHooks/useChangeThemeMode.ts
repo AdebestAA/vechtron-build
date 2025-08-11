@@ -1,30 +1,30 @@
-"use client"
-import  { useEffect, useState } from 'react'
+// "use client"
+// import  { useEffect, useState } from 'react'
 
-type typeTheme = "light" | "dark"
-const useChangeThemeMode = () => {
-    const [theme, setTheme] = useState< typeTheme>('light');
+// type typeTheme = "light" | "dark"
+// const useChangeThemeMode = () => {
+//     const [theme, setTheme] = useState< typeTheme>('light');
 
-    useEffect(() => {
-      const storedStorageTheme = localStorage.getItem('theme') as  typeTheme;
-      if (storedStorageTheme) {
-        setTheme(storedStorageTheme);
-        document.documentElement.classList.toggle('dark', storedStorageTheme === 'dark');
-      }
-    }, []);
+//     useEffect(() => {
+//       const storedStorageTheme = localStorage.getItem('theme') as  typeTheme;
+//       if (storedStorageTheme) {
+//         setTheme(storedStorageTheme);
+//         document.documentElement.classList.toggle('dark', storedStorageTheme === 'dark');
+//       }
+//     }, []);
   
  
-    useEffect(() => {
-      localStorage.setItem('theme', theme);
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-      document.documentElement.classList.toggle('light', theme === 'light');
-    }, [theme]);
+//     useEffect(() => {
+//       localStorage.setItem('theme', theme);
+//       document.documentElement.classList.toggle('dark', theme === 'dark');
+//       document.documentElement.classList.toggle('light', theme === 'light');
+//     }, [theme]);
   
-    const toggleTheme = () => {
-      setTheme((prev) => (prev == 'light' ? 'dark' : 'light'));
-    };
+//     const toggleTheme = () => {
+//       setTheme((prev) => (prev == 'light' ? 'dark' : 'light'));
+//     };
 
-    return {toggleTheme,theme}
-}
+//     return {toggleTheme,theme}
+// }
 
-export default useChangeThemeMode
+// export default useChangeThemeMode
