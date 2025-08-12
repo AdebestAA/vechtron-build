@@ -43,15 +43,41 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+@theme{
+/* colors */
+--color-primary: var(--primary)  ;
+--color-background:var(--background); 
+--color-stroke:#999999; 
+--color-light-one:#F7F7F71A; 
+
+  /* breakpoint */
+  --breakpoint-xxs: 330px;
+  --breakpoint-xs: 370px;
+  --breakpoint-sm: 400px;
+  --breakpoint-mdsm: 500px;
+  --breakpoint-md: 640px;
+  --breakpoint-mdlg: 768px;
+  --breakpoint-lg: 900px;
+  --breakpoint-xl: 1024px;
+  --breakpoint-2xl: 1280px;
+
+}
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  /* my color */
+  --primary: #3F2A5C  ;
+  --background:#FFFFFF; 
+  --text-color-one: #030712;
+  --stroke:#999999; 
+  --light-one:#F7F7F71A; 
+  --overview-container:"#DADADA"
+
+  /* generated */
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.13 0.028 261.692);
-  --primary: oklch(0.21 0.034 264.665);
   --primary-foreground: oklch(0.985 0.002 247.839);
   --secondary: oklch(0.967 0.003 264.542);
   --secondary-foreground: oklch(0.21 0.034 264.665);
@@ -79,13 +105,21 @@
 }
 
 .dark {
-  --background: oklch(0.13 0.028 261.692);
+  /* my colors */
+  --background: #030712;
+  --text-color-one: #FFFFFF;
+  --primary: #3F2A5C;
+  --stroke:#999999; 
+  --light-one:#F7F7F71A; 
+    --overview-container:#DADADA;
+  
+
+  /* gen */
   --foreground: oklch(0.985 0.002 247.839);
   --card: oklch(0.21 0.034 264.665);
   --card-foreground: oklch(0.985 0.002 247.839);
   --popover: oklch(0.21 0.034 264.665);
   --popover-foreground: oklch(0.985 0.002 247.839);
-  --primary: oklch(0.928 0.006 264.531);
   --primary-foreground: oklch(0.21 0.034 264.665);
   --secondary: oklch(0.278 0.033 256.848);
   --secondary-foreground: oklch(0.985 0.002 247.839);
@@ -120,3 +154,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+.loader {
+  width: 25px;
+  height: 25px;
+  border: 2px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
