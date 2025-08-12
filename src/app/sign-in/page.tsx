@@ -47,7 +47,7 @@ const response = await res.json()
 return response
 
 }
-const page = () => {
+const Page = () => {
     const [formState,setFormState] = useState<typeFormState<string,number>>({
      
         email:"",
@@ -226,4 +226,4 @@ else{
   )
 }
 
-export default page
+export default Page

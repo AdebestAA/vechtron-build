@@ -51,7 +51,7 @@ const response = await res.json()
 return response
 
 }
-const page = () => {
+const Page = () => {
     const [formState,setFormState] = useState<typeFormState<string,number>>({
         firstName:"",
         lastName:"",
@@ -288,4 +288,4 @@ else{
   )
 }
 
-export default page
+export default Page
