@@ -174,3 +174,32 @@
       transform: rotate(360deg);
   }
   } 
+
+  /* .fc-scroller-harness{
+    background-color: red;
+  } */
+
+  .fc{
+    min-width: 500px;
+  }
+  .fc-col-header {
+    background-color: var(--card);
+  }
+
+  /* For month (dayGridMonth) view rows */
+.fc-daygrid-body tr:nth-child(odd) {
+  background-color: #030712; 
+}
+
+.fc-daygrid-body tr:nth-child(even) {
+  background-color: #1B1F29; 
+}
+
+/* For timeGridWeek/Day view rows */
+/* .fc-timegrid-slot:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.fc-timegrid-slot:nth-child(even) {
+  background-color: #ffffff;
+} */

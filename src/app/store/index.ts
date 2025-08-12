@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import mobileSidebarReducer from "./slices/mobileSidebarSlice";
+import modalReducer from "./slices/modalSlice";
 
 
 const store = configureStore({
     reducer:{
-        mobileSidebarSlice:mobileSidebarReducer
+        mobileSidebarSlice:mobileSidebarReducer,
+        modalReducer:modalReducer
     }
 })
 
