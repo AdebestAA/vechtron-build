@@ -1,10 +1,7 @@
 "use client"
 
-import * as React from "react"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Calendar,
   Command,
   Contact,
@@ -12,19 +9,16 @@ import {
   GalleryVerticalEnd,
   Headset,
   Map,
-  Navigation,
-  Navigation2,
   Navigation2Icon,
   PieChart,
-  Plus,
-  Settings2,
-  SquareTerminal,
+  SquareTerminal
 } from "lucide-react"
+import * as React from "react"
 
+import { RootStoreType } from "@/app/store"
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -33,10 +27,8 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Button } from "./ui/button"
 import Image from "next/image"
 import { useSelector } from "react-redux"
-import { RootStoreType } from "@/app/store"
 
 // This is sample data.
 const data = {
@@ -62,7 +54,7 @@ const data = {
       plan: "Free",
     },
   ],
-  needHelp:[
+  needHelp: [
     {
       title: "Support",
       url: "#",
@@ -152,26 +144,26 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const mobileSidebarState = useSelector((store:RootStoreType)=>{
+  const mobileSidebarState = useSelector((store: RootStoreType) => {
 
     return store.mobileSidebarSlice
   })
   return (
     <Sidebar collapsible="icon"   {...props}>
       {/* header */}
-   
-<SidebarHeader className={`flex flex-row justify-between items-center ${mobileSidebarState? "lg:justify-center justify-end" : ""}`}>
-{!mobileSidebarState &&  <Image
-    width={40}
-    height={20}
-    alt="logo"
-    src="/logo-two.svg"
-    className="object-contain lg:inline hidden"
-  />}
-  <SidebarTrigger className="-ml-1" />
-</SidebarHeader>
-    
-    {/* content */}
+
+      <SidebarHeader className={`flex flex-row justify-between items-center ${mobileSidebarState ? "lg:justify-center justify-end" : ""}`}>
+        {!mobileSidebarState && <Image
+          width={40}
+          height={20}
+          alt="logo"
+          src="/logo-two.svg"
+          className="object-contain lg:inline hidden"
+        />}
+        <SidebarTrigger className="-ml-1" />
+      </SidebarHeader>
+
+      {/* content */}
       <SidebarContent className="">
         <NavProjects projects={data.projects} />
         <NavMain items={data.navMain} />
