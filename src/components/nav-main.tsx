@@ -1,35 +1,33 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
-import { IconType } from "react-icons"; // or your icon's type
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+  SidebarMenuSubItem
+} from "@/components/ui/sidebar";
+import { ChevronRight, type LucideIcon } from "lucide-react";
 
-type MenuItem = {
-  title: string;
-  url: string;
-};
+// type MenuItem = {
+//   title: string;
+//   url: string;
+// };
 
-type menuType = {
-  title: string;
-  url: string;
-  icon: IconType; 
-  isActive: boolean;
-  items: MenuItem[];
-};
+// type menuType = {
+//   title: string;
+//   url: string;
+//   icon: IconType;
+//   isActive: boolean;
+//   items: MenuItem[];
+// };
 
 export function NavMain({
   items,
@@ -61,9 +59,9 @@ export function NavMain({
                 <SidebarMenuButton tooltip={item.title}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
-      {item?.items?.length && item.items.length > 0 ? (
-<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-) : ""}
+                  {item?.items?.length && item.items.length > 0 ? (
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  ) : ""}
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
