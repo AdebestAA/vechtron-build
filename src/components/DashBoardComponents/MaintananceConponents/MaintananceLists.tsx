@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { ChevronDown, TriangleAlert } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
 const maintananceListData = [
     {
         id: 1,
@@ -64,7 +63,8 @@ const maintananceListData = [
 ]
 
 const MaintananceLists = () => {
-    const [currBtn, setCurrBtn] = useState("all")
+    // const [currBtn, setCurrBtn] = useState("all")
+    const currBtn = "all"
     return (
         <div className='text-sm my-4'>
             <header className='flex md:flex-row flex-col md:justify-between items-center'>
