@@ -1,18 +1,8 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import Main from "@/components/DashBoardComponents/Main"
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import {
   SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
+  SidebarProvider
 } from "@/components/ui/sidebar"
 
 export default function Page() {
@@ -20,7 +10,7 @@ export default function Page() {
     <SidebarProvider >
       <AppSidebar />
       <SidebarInset>
-<Main/>
+        <Main />
       </SidebarInset>
     </SidebarProvider>
   )
