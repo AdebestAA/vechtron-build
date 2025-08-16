@@ -17,7 +17,11 @@ import { useTheme } from 'next-themes';
 import { desktopImageSlide } from '@/utils/desktop-image-slide';
 import { GoogleLogin, } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const styleForInput = "border-b-border border-b-1 outline-none "
 
@@ -30,12 +34,15 @@ interface typeFormState<S> {
     confirmPassword: S
 }
 
-
+const url = process.env.NEXT_PUBLIC_API_URL as string
 const postData = async (formState: typeFormState<string>) => {
 
-    // https://api-staging.vechtron.com/auth/api/v1/auth/account/signup
+    if (!url) {
+        alert("end point not available")
+        return
+    }
 
-    const res = await fetch("https://api-staging.vechtron.com/auth/api/v1/auth/account/signup", {
+    const res = await fetch(`${url}/auth/api/v1/auth/account/signup`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -180,49 +187,72 @@ const Page = () => {
 
 
 
-                <article className=' flex  '>
-                    <>
-                        {/* <div className='absolute w-full h-full inset-0 object-cover bg-red'>
+                <div className='absolute inset-0'>
 
-                    </div> */}
-                        <Image src={imageSrc}
-                            alt=''
-                            fill
-                            className='absolute w-full h-full inset-0 object-cover '
+                    <Swiper
+                        modules={[Pagination, Autoplay]}
+                        slidesPerView={1}
+                        loop={true}
+                        autoplay={{ delay: 5000 }}
+                        className="w-full h-full  "
+                    >
 
-                        />
-                    </>
-                    <aside className='w-[75%] text-white z-10' >
-                        <h1 className='font-semibold text-[45px]'>
-                            {header}
-                        </h1>
-                        <h4 className='text-2xl '>
-                            {content}
-                        </h4>
-                    </aside>
-                    <aside className='w-[25%] flex items-end justify-end gap-x-2 z-10'>
-                        <Button
-                            onClick={() => {
-                                if (curr == 0) {
-                                    return
-                                }
-                                setCurr(prev => prev - 1)
-                            }}
-                            className='bg-white text-[#3F2A5C] hover:text-white cursor-pointer'>
-                            <ArrowLeft />
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                if (curr == desktopImageSlide.length - 1) {
-                                    return
-                                }
-                                setCurr(prev => prev + 1)
-                            }}
-                            className='bg-white text-[#3F2A5C] hover:text-white cursor-pointer'>
-                            <ArrowRight />
-                        </Button>
-                    </aside>
-                </article>
+                        {desktopImageSlide.map((item, index) => {
+
+                            return <SwiperSlide key={index + 1}>
+
+                                <div className='min-h-screen w-full '>
+                                    <Image
+                                        fill
+                                        className='w-full h-full object-cover'
+                                        src={item.imageSrc} alt={item.content} />
+                                </div>
+
+
+                            </SwiperSlide>
+                        })}
+
+                    </Swiper>
+
+
+
+                </div>
+
+
+
+                <div className=''>
+
+                    <Swiper
+                        modules={[Pagination, Autoplay]}
+                        slidesPerView={1}
+                        loop={true}
+                        autoplay={{ delay: 5000 }}
+
+                        className="w-full h-full  "
+                    >
+
+                        {desktopImageSlide.map((item, index) => {
+
+                            return <SwiperSlide key={index + 1}>
+
+                                <aside className='w-[75%] text-white z-10' >
+                                    <h1 className='font-semibold text-[40px]'>
+                                        {item.header}
+                                    </h1>
+                                    <h4 className='text-lg '>
+                                        {item.content}
+                                    </h4>
+                                </aside>
+
+                            </SwiperSlide>
+                        })}
+
+                    </Swiper>
+
+
+
+                </div>
+
 
             </section>
 

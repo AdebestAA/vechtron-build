@@ -31,9 +31,9 @@ export default function RootLayout({
       <ClientProvider>
         <ReactQueryProvider>
           <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string} >
-
             <body
               className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+
             >
               <ThemeProvider
                 attribute="class"
@@ -44,6 +44,7 @@ export default function RootLayout({
                 {children}
               </ThemeProvider>
             </body>
+
           </GoogleOAuthProvider>
         </ReactQueryProvider>
       </ClientProvider>

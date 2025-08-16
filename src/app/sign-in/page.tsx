@@ -10,10 +10,16 @@ import { ArrowLeft, ArrowRight, Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
-import { FaEye, FaEyeSlash } from "react-icons/fa"
 
+import React, { useEffect, useRef, useState } from 'react'
+import { FaEye, FaEyeSlash } from "react-icons/fa"
+import { useRouter } from "next/navigation"
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const styleForInput = "border-b-border border-b-1 outline-none "
 
@@ -21,9 +27,13 @@ interface typeFormState<S> {
     email: S,
     password: S,
 }
-
+const url = process.env.NEXT_PUBLIC_API_URL as string
 const postData = async (formState: typeFormState<string>) => {
-    const res = await fetch("https://api-staging.vechtron.com/auth/api/v1/auth/account/login", {
+    if (!url) {
+        alert("end point not available")
+        return
+    }
+    const res = await fetch(`${url}/auth/api/v1/auth/account/login`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -56,6 +66,7 @@ export default function Page() {
     const [curr, setCurr] = useState(0);
     const { theme, setTheme } = useTheme()
     // const { toggleTheme, theme } = useChangeThemeMode()
+
     const mutation = useMutation({
         mutationFn: postData,
         onSuccess: (data) => {
@@ -99,6 +110,15 @@ export default function Page() {
 
     }
 
+
+
+    useEffect(() => {
+        // if (!localStorage.getItem("user")) {
+        //   router.push("sign-in")
+        // }
+        // console.log(localStorage.getItem("userInfo"));
+
+    }, [])
 
     const { imageSrc, header, content } = desktopImageSlide[curr]
 
@@ -152,54 +172,73 @@ export default function Page() {
                         />
                     </div>
                 </article>
+
                 {/* second article */}
+                <div className='absolute inset-0'>
+
+                    <Swiper
+                        modules={[Pagination, Autoplay]}
+                        slidesPerView={1}
+                        loop={true}
+                        autoplay={{ delay: 5000 }}
+                        className="w-full h-full  "
+                    >
+
+                        {desktopImageSlide.map((item, index) => {
+
+                            return <SwiperSlide key={index + 1}>
+
+                                <div className='min-h-screen w-full '>
+                                    <Image
+                                        fill
+                                        className='w-full h-full object-cover'
+                                        src={item.imageSrc} alt={item.content} />
+                                </div>
+
+
+                            </SwiperSlide>
+                        })}
+
+                    </Swiper>
 
 
 
+                </div>
 
-                <article className=' flex  '>
-                    <>
-                        {/* <div className='absolute w-full h-full inset-0 object-cover bg-red'>
-           
-                               </div> */}
-                        <Image src={imageSrc}
-                            alt=''
-                            fill
-                            className='absolute w-full h-full inset-0 object-cover '
 
-                        />
-                    </>
-                    <aside className='w-[75%] text-white z-10' >
-                        <h1 className='font-semibold text-[45px]'>
-                            {header}
-                        </h1>
-                        <h4 className='text-2xl '>
-                            {content}
-                        </h4>
-                    </aside>
-                    <aside className='w-[25%] flex items-end justify-end gap-x-2 z-10'>
-                        <Button
-                            onClick={() => {
-                                if (curr == 0) {
-                                    return
-                                }
-                                setCurr(prev => prev - 1)
-                            }}
-                            className='bg-white text-[#3F2A5C] hover:text-white cursor-pointer'>
-                            <ArrowLeft />
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                if (curr == desktopImageSlide.length - 1) {
-                                    return
-                                }
-                                setCurr(prev => prev + 1)
-                            }}
-                            className='bg-white text-[#3F2A5C] hover:text-white cursor-pointer'>
-                            <ArrowRight />
-                        </Button>
-                    </aside>
-                </article>
+
+                <div className=''>
+
+                    <Swiper
+                        modules={[Pagination, Autoplay]}
+                        slidesPerView={1}
+                        loop={true}
+                        autoplay={{ delay: 5000 }}
+
+                        className="w-full h-full  "
+                    >
+
+                        {desktopImageSlide.map((item, index) => {
+
+                            return <SwiperSlide key={index + 1}>
+
+                                <aside className='w-[75%] text-white z-10' >
+                                    <h1 className='font-semibold text-[40px]'>
+                                        {item.header}
+                                    </h1>
+                                    <h4 className='text-lg '>
+                                        {item.content}
+                                    </h4>
+                                </aside>
+
+                            </SwiperSlide>
+                        })}
+
+                    </Swiper>
+
+
+
+                </div>
 
             </section>
             {/* Second section */}

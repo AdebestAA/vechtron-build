@@ -5,12 +5,13 @@ import { Button } from '../ui/button'
 import Image from 'next/image'
 import { Textarea } from "@/components/ui/textarea"
 import gsap from 'gsap'
-import { useDispatch, useSelector } from 'react-redux'
-import { dispatchType, RootStoreType } from '@/app/store'
+import { useSelector } from 'react-redux'
+import { RootStoreType } from '@/app/store'
 import { SidebarTrigger } from '../ui/sidebar'
 import OverviewComponent from './OverviewComponent'
 import Maintenance from './Maintenance'
-import UseChangeThemeMode from '@/hooks/UseChangeThemeMode'
+
+import { useTheme } from 'next-themes'
 
 
 
@@ -60,7 +61,7 @@ const chatAiData = [
   },
 ]
 const Main = () => {
-  const { toggleTheme, theme } = UseChangeThemeMode()
+  const { theme, setTheme } = useTheme()
   const [currBtn, setCurrBtn] = useState("overview")
   // const dispatch = useDispatch<dispatchType>()
   const mobileSidebarState = useSelector((store: RootStoreType) => {
@@ -69,6 +70,15 @@ const Main = () => {
   })
 
 
+
+  const toggleTheme = () => {
+    if (theme == "dark") {
+      setTheme("light")
+    }
+    else {
+      setTheme("dark")
+    }
+  }
   useEffect(() => {
     if (mobileSidebarState) {
       gsap.to(document.querySelector(".mobile-sidebar"), {
