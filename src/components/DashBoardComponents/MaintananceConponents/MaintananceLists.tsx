@@ -64,7 +64,7 @@ const maintananceListData = [
 ]
 
 const MaintananceLists = () => {
-    const [currBtn, setCurrBtn] = useState("all")
+    const [currBtn,] = useState("all")
     return (
         <div className='text-sm my-4'>
             <header className='flex md:flex-row flex-col md:justify-between items-center'>

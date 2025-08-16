@@ -1,28 +1,17 @@
 "use client"
 
 import {
-  Folder,
-  Forward,
-  MoreHorizontal,
-  Trash2,
   type LucideIcon,
 } from "lucide-react"
-// Array(9).fill("Vechtron 001 Bonnet of.....")
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
+
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
+
 } from "@/components/ui/sidebar"
 import { useState } from "react"
 
@@ -35,22 +24,22 @@ export function NavProjects({
     icon: LucideIcon
   }[]
 }) {
-  const { isMobile } = useSidebar()
-  const [showAll,setShowAll] = useState<boolean>(false)
+  // const { isMobile } = useSidebar()
+  const [showAll, setShowAll] = useState<boolean>(false)
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden ">
       <SidebarGroupLabel className="text-[0.7rem]">CHAT HISTORY</SidebarGroupLabel>
       <SidebarMenu>
-        {projects.filter(((item,index) => {
-if (showAll) {
-  return index
-}
-else {
-return index < 3
-}
+        {projects.filter(((item, index) => {
+          if (showAll) {
+            return index
+          }
+          else {
+            return index < 3
+          }
 
-        } )).map((item,index) => (
+        })).map((item, index) => (
           <SidebarMenuItem key={index + 1}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
@@ -90,7 +79,7 @@ return index < 3
         <SidebarMenuItem>
           <SidebarMenuButton className="text-sidebar-foreground/70">
             {/* <MoreHorizontal className="text-sidebar-foreground/70" /> */}
-            <span className="text-[0.7rem]" onClick={()=> setShowAll(!showAll)}>{showAll ? "COLLAPSE": "SEE MORE"}</span>
+            <span className="text-[0.7rem]" onClick={() => setShowAll(!showAll)}>{showAll ? "COLLAPSE" : "SEE MORE"}</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>

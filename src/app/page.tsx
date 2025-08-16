@@ -1,28 +1,17 @@
+"use client"
 import Link from "next/link";
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useDispatch, useSelector } from "react-redux";
-import { dispatchType, RootStoreType } from "./store";
-import { closeModal, openModal } from "./store/slices/modalSlice";
+
+// import { useSelector } from "react-redux";
+// import { RootStoreType } from "./store";
+
 
 export default function Home() {
-  const dispatch = useDispatch<dispatchType>()
+  // const dispatch = useDispatch<dispatchType>()
   // const modalState = useSelector((store:RootStoreType)=>{
 
   //   return store.modalReducer
   // })
-  const isOpen = useSelector((state: RootStoreType) => state.modalReducer)
+  // const isOpen = useSelector((state: RootStoreType) => state.modalReducer)
 
   return (
     <div className="">

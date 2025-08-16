@@ -1,14 +1,19 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { CardTitle } from '@/components/ui/card'
-import useChangeThemeMode from '@/lib/CustomHooks/useChangeThemeMode'
+
+import { desktopImageSlide } from '@/utils/desktop-image-slide'
 import Spinner from '@/utils/Spinner'
+import { GoogleLogin } from '@react-oauth/google'
 import { useMutation } from '@tanstack/react-query'
 import { ArrowLeft, ArrowRight, Moon, Sun } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from "react-icons/fa"
+
 
 const styleForInput = "border-b-border border-b-1 outline-none "
 
@@ -46,21 +51,33 @@ export default function Page() {
         password: false,
 
     })
-    const { toggleTheme, theme } = useChangeThemeMode()
+    const [errorMsg, setErrorMsg] = useState<string>("")
+    const router = useRouter()
+    const [curr, setCurr] = useState(0);
+    const { theme, setTheme } = useTheme()
+    // const { toggleTheme, theme } = useChangeThemeMode()
     const mutation = useMutation({
         mutationFn: postData,
         onSuccess: (data) => {
             console.log(data);
             if (data.status == "success") {
-                alert("successfully logged in, check console for response")
+                if (data.status === "success") {
+                    localStorage.setItem("tokens", JSON.stringify({ accessToken: data.data.access_token, resfreshToken: data.data.resfresh_token }))
+                    localStorage.setItem("userInfo", JSON.stringify(data.data.user))
+                    router.push("/dashboard")
+                }
+
             }
             else {
-                alert("something went wrong, check console for error")
+                // alert("something went wrong, check console for error")
+                setErrorMsg(data.message)
+
             }
         },
         onError: (error) => {
             console.log(error);
-            alert("an error occured check console for error info")
+            setErrorMsg("an error ocurred, please try again later")
+            // alert("an error occured check console for error info")
 
         },
     })
@@ -68,22 +85,67 @@ export default function Page() {
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         console.log(formState);
+        setErrorMsg("")
         mutation.mutate(formState)
 
     }
+    const handleThemeChange = () => {
+        if (theme == "dark") {
+            setTheme("light")
+        }
+        else {
+            setTheme("dark")
+        }
+
+    }
+
+
+    const { imageSrc, header, content } = desktopImageSlide[curr]
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleSuccess = async (credentialResponse: any) => {
+        const googleToken = credentialResponse.credential;
+        console.log("google token", googleToken);
+        console.log("google credentials", credentialResponse);
+
+
+
+        const res = await fetch("https://api-staging.vechtron.com/auth/api/v1/auth/google/oauth2callback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: googleToken }),
+
+        });
+
+        const data = await res.json();
+        console.log("Backend Response:", data);
+        if (data.status === "success") {
+            localStorage.setItem("tokens", JSON.stringify({ accessToken: data.data.access_token, resfreshToken: data.data.resfresh_token }))
+            localStorage.setItem("userInfo", JSON.stringify(data.data.user))
+            router.push("/dashboard")
+        }
+
+
+    };
+
+    const handleError = () => {
+        // console.log("Google Login Failed");
+        alert("Couldn't login with google at the moment, plase try again later")
+    };
+
     return (
         <div className='lg:flex max-h-screen'>
             {/* first section */}
-            <section className="lg:w-[60%] hidden h-full min-h-screen bg-primary p-10 lg:flex flex-col justify-between text-[#FFFFFF]"
-                style={{
-                    backgroundImage: "url('/vechtron-accelerator.svg')",
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    // height: '100vh',
-                }}
+            <section className="lg:w-[60%] relative hidden h-full h-screen bg-primary p-10 lg:flex flex-col justify-between text-[#FFFFFF]"
+            // style={{
+            //     backgroundImage: "url('/vechtron-accelerator.svg')",
+            //     backgroundSize: 'cover',
+            //     backgroundRepeat: 'no-repeat',
+            //     // height: '100vh',
+            // }}
             >
                 {/* first article */}
-                <article className=' '>
+                <article className=' z-10 overflow-x-hidden'>
                     <div className='relative w-[180px] h-[50px] '>
                         <Image src={"/logo.svg"} alt='logo' fill
                             className='absolute object-contain'
@@ -91,48 +153,88 @@ export default function Page() {
                     </div>
                 </article>
                 {/* second article */}
-                <article className=' flex '>
 
-                    <aside className='w-[75%]'>
+
+
+
+                <article className=' flex  '>
+                    <>
+                        {/* <div className='absolute w-full h-full inset-0 object-cover bg-red'>
+           
+                               </div> */}
+                        <Image src={imageSrc}
+                            alt=''
+                            fill
+                            className='absolute w-full h-full inset-0 object-cover '
+
+                        />
+                    </>
+                    <aside className='w-[75%] text-white z-10' >
                         <h1 className='font-semibold text-[45px]'>
-                            Turn Every Drive Into
-                            <br />
-                            a Smarter Journey.
+                            {header}
                         </h1>
                         <h4 className='text-2xl '>
-                            Unlock the ultimate driving experience with our Ai-powered assistant. Effortless, efficient, and smart
+                            {content}
                         </h4>
                     </aside>
-                    <aside className='w-[25%] flex items-end justify-end gap-x-2'>
-                        <Button className='bg-[#FFFFFF] text-[#3F2A5C] hover:text-white cursor-pointer'>
+                    <aside className='w-[25%] flex items-end justify-end gap-x-2 z-10'>
+                        <Button
+                            onClick={() => {
+                                if (curr == 0) {
+                                    return
+                                }
+                                setCurr(prev => prev - 1)
+                            }}
+                            className='bg-white text-[#3F2A5C] hover:text-white cursor-pointer'>
                             <ArrowLeft />
                         </Button>
-                        <Button className='bg-[#FFFFFF] text-[#3F2A5C] hover:text-white cursor-pointer'>
+                        <Button
+                            onClick={() => {
+                                if (curr == desktopImageSlide.length - 1) {
+                                    return
+                                }
+                                setCurr(prev => prev + 1)
+                            }}
+                            className='bg-white text-[#3F2A5C] hover:text-white cursor-pointer'>
                             <ArrowRight />
                         </Button>
                     </aside>
                 </article>
+
             </section>
             {/* Second section */}
-            <section className="lg:w-[40%]  py-8 lg:px-20 px-6 max-h-screen" >
+            <section className="lg:w-[40%]  py-8 lg:px-20 px-6 max-h-screen flex flex-col justify-center" >
                 <div className='flex flex-col justify-evenly '>
                     {/* Header */}
                     <div className='flex items-center justify-between '>
                         <CardTitle className=' text-xl'>Log In</CardTitle>
-                        <Button className='cursor-pointer' variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun /> : <Moon />}</Button>
+                        <Button className='cursor-pointer' variant={"ghost"} onClick={handleThemeChange} >{theme == "dark" ? <Sun /> : <Moon />}</Button>
                     </div>
 
+
+                    <div className='text-red'>
+
+                    </div>
                     <div className='flex flex-col gap-y-3 my-4'>
                         <div className='flex gap-x-2'>
                             <span>Do not have an account?  </span>
                             <Link href={"/sign-up"} className='font-semibold'>Sign UP</Link>
                         </div>
                         {/* Sign up with google */}
-                        <article>
-                            <Button className='w-full font-normal py-6 cursor-pointer' variant={"outline"} size={"lg"}>
-                                <Image src={"./google.svg"} alt="google" width={20} height={20} />
-                                Login with Google
+                        <article className='w-full relative '>
+                            <Button
+
+                                className='w-full font-normal py-5 cursor-pointer absolute inset-0 ' variant={"outline"} size={"lg"}>
+                                <Image src={"/google.svg"} alt="google icon" width={24} height={24} />
+                                Sign In with Google
                             </Button>
+                            <div className='opacity-0'>
+                                <GoogleLogin
+                                    onSuccess={handleSuccess}
+                                    onError={handleError}
+                                    theme="outline" size="large" text="continue_with" shape="pill"
+                                />
+                            </div>
                         </article>
 
                         {/* Or */}
@@ -145,6 +247,13 @@ export default function Page() {
                         </div>
                     </div>
                 </div>
+
+                <div className='text-[red] pb-4 text-sm '>
+
+                    {errorMsg ? errorMsg : ""}
+
+                </div>
+
                 <form action="" onSubmit={handleSubmit} className='flex flex-col justify-evenly  gap-y-2'>
                     {/* email */}
                     <div className='flex flex-col'>
@@ -187,7 +296,7 @@ export default function Page() {
                     </div>
 
                     <div>
-                        <Button type='submit' className=' cursor-pointer w-full font-medium text-lg text-[#FFFFFF]' size={"lg"}>
+                        <Button type='submit' className=' cursor-pointer w-full font-medium text-lg text-white mt-12' size={"lg"}>
                             {mutation.isPending ? <Spinner /> : "Sign In"}
                             {/* <Spinner/> */}
                         </Button>
