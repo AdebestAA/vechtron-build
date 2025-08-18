@@ -23,7 +23,7 @@ export default function Page() {
 
   return (
     <>
-      {/* {userExist ? (
+      {userExist ? (
         <>
           <SidebarProvider >
             <AppSidebar />
@@ -34,8 +34,8 @@ export default function Page() {
         </>
       ) : (<>
         <PageLoader />
-      </>)} */}
-      <PageLoader />
+      </>)}
+      {/* <PageLoader /> */}
 
     </>
   )
