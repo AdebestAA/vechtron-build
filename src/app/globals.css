@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
+/* * {
+  box-sizing: border-box;
+} */
+html,
+body {
+  overflow-x: hidden;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -46,6 +55,7 @@
 @theme {
   /* colors */
   --color-primary: var(--primary);
+  --color-lavender: var(--lavender-mist);
   --color-background: var(--background);
   --color-stroke: #999999;
   --color-light-one: #F7F7F71A;
@@ -71,10 +81,12 @@
   --text-color-one: #030712;
   --stroke: #999999;
   --light-one: #F7F7F71A;
-  --overview-container: "#DADADA"
+  --light-two: #1B1F29;
+  --overview-container: #1B1F29;
+  --lavender-mist: #DDC7DF;
 
-    /* generated */
-    --foreground: oklch(0.13 0.028 261.692);
+  /* generated */
+  --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
   --popover: oklch(1 0 0);
@@ -112,7 +124,9 @@
   --primary: #3F2A5C;
   --stroke: #999999;
   --light-one: #F7F7F71A;
-  --overview-container: #DADADA;
+  --light-two: #1B1F29;
+  --overview-container: #1B1F29;
+  --lavender-mist: #DDC7DF;
 
 
   /* gen */
@@ -228,5 +242,72 @@
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.zoom {
+  animation: zoomInOut 2s ease-in-out infinite;
+}
+
+
+@keyframes zoomInOut {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/*  IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scale-in {
+  animation-name: scaeIn;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.scale-out {
+  animation-name: scaeOut;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+
+}
+
+@keyframes scaleOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+
+  }
+
+  100% {
+    opacity: 0;
+    scale: 0;
   }
 }

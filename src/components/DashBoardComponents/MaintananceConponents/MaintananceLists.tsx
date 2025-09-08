@@ -68,7 +68,7 @@ const MaintananceLists = () => {
     return (
         <div className='text-sm my-4'>
             <header className='flex md:flex-row flex-col md:justify-between items-center'>
-                <h1 className='font-medium text-2xl my-2'>Maintanance List</h1>
+                <h1 className='font-medium text-3xl my-2'>Maintanance List</h1>
                 <div>
                     {["all", "upcoming", "overdue", "done"].map((item, index) => {
                         return <Button key={index + 1} variant={currBtn == item ? "default" : "ghost"} className={`gap-x-2${currBtn == item ? "bg-white" : ""} capitalize`}>
@@ -81,8 +81,8 @@ const MaintananceLists = () => {
             <section className='flex flex-wrap justify-between items-start gap-y-4 my-6'>
                 {maintananceListData.map((item, index) => {
 
-                    return <div key={index + 1} className='bg-[var(--overview-container)] md:mx-0 mx-auto w-[95%] md:w-[45%] lg:w-[30%] rounded-lg text-black px-4 py-4 '>
-                        <aside className='flex justify-between'>
+                    return <div key={index + 1} className='bg-[var(--overview-container)] md:mx-0 mx-auto w-[95%] md:w-[45%] lg:w-[30%] rounded-lg text-white px-4 py-4 '>
+                        <aside className='flex justify-between items-center'>
                             <span className='flex gap-x-2 font-semibold'><TriangleAlert
                                 className={` ${item.percentage <= 25 ? 'text-[#F80000]' : item.percentage <= 60 ? "text-[#AA9D05] " : "text-[#499C00]"}`}
                             />{item.title}</span>

@@ -1,11 +1,13 @@
 "use client"
 import { AppSidebar } from "@/components/app-sidebar"
 import Main from "@/components/DashBoardComponents/Main"
+import { Button } from "@/components/ui/button"
 import {
   SidebarInset,
   SidebarProvider
 } from "@/components/ui/sidebar"
 import { PageLoader } from "@/utils/page-loader"
+import { CarFront, MessageCircleMore } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -19,12 +21,19 @@ export default function Page() {
     else {
       setUserExist(true)
     }
-  }, [])
+  }, [router])
 
   return (
     <>
       {userExist ? (
         <>
+          <div className="md:hidden flex items-end flex-col gap-y-2  w-full fixed top-[50%] z-100  px-3">
+            <Button className="text-white shadow-2xl"><CarFront /></Button>
+            {/* <br /> */}
+            <Button className="text-white shadow-2xl zoom"><MessageCircleMore /> chatA1 </Button>
+
+
+          </div>
           <SidebarProvider >
             <AppSidebar />
             <SidebarInset>

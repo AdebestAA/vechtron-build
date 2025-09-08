@@ -72,13 +72,18 @@ export function TableDemo() {
       </TableHeader>
       <TableBody className="">
         {info.map((item, index) => (
-          <TableRow key={index}>
-            <TableCell className="font-medium">{item.date}</TableCell>
+
+          <TableRow key={index} className="">
+
+
             <TableCell className=" whitespace-normal " >{item.service}</TableCell>
+            <TableCell className="font-medium">{item.date}</TableCell>
             <TableCell className=" whitespace-normal">{item.provider}</TableCell>
             <TableCell className="text-center">{item.cost}</TableCell>
             <TableCell className="text-center">{item.mileage}</TableCell>
+
           </TableRow>
+
         ))}
       </TableBody>
       {/* <TableFooter>

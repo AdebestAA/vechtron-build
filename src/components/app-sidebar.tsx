@@ -6,13 +6,10 @@ import {
   Calendar,
   Command,
   Contact,
-  Frame,
+
   GalleryVerticalEnd,
   Headset,
-  Map,
-
   Navigation2Icon,
-  PieChart,
   SquareTerminal,
 } from "lucide-react"
 
@@ -31,7 +28,7 @@ import Image from "next/image"
 import { useSelector } from "react-redux"
 import { RootStoreType } from "@/app/store"
 
-// This is sample data.
+
 const data = {
   user: {
     name: "osagie",
@@ -108,37 +105,37 @@ const data = {
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Frame,
+      // icon: Frame,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: PieChart,
+      // icon: PieChart,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
   ],
 }
@@ -164,8 +161,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarTrigger className="-ml-1" />
       </SidebarHeader>
 
+
+
+      {/* <SidebarMenuButton className="">
+        <Button className="w-full text-white"></Button>
+    
+      </SidebarMenuButton> */}
       {/* content */}
       <SidebarContent className="">
+
         <NavProjects projects={data.projects} />
         <NavMain items={data.navMain} />
         <NavMain items={data.needHelp} />

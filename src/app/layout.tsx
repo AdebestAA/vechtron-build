@@ -5,6 +5,10 @@ import ReactQueryProvider from "@/lib/ReactQueryProvider";
 import ClientProvider from "@/components/ClientProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import PersistUserInfoState from "@/components/persist-user-state";
+import { Toaster } from "sonner";
+import Modal from "@/components/modal";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +45,10 @@ export default function RootLayout({
                 enableSystem
                 disableTransitionOnChange
               >
+                <PersistUserInfoState />
                 {children}
+                <Toaster />
+                <Modal />
               </ThemeProvider>
             </body>
 
