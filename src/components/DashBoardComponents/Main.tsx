@@ -16,47 +16,47 @@ import DashBoardImageDisplay from './dashboard-image-display'
 
 export const health = [
   {
-    id:1,
-    percent:"20%",
-    value:"overall health"
+    id: 1,
+    percent: "20%",
+    value: "overall health"
   },
   {
-    id:1,
-    percent:"20%",
-    value:"overall health"
+    id: 1,
+    percent: "20%",
+    value: "overall health"
   },
   {
-    id:1,
-    percent:"20%",
-    value:"overall health"
+    id: 1,
+    percent: "20%",
+    value: "overall health"
   },
   {
-    id:1,
-    percent:"20%",
-    value:"overall health"
+    id: 1,
+    percent: "20%",
+    value: "overall health"
   },
 ]
 
 export const chatAiData = [
   {
-    id:1,
-    value:"Quick Vehicle Analysis",
-    iconSrc:"/search.svg"
+    id: 1,
+    value: "Quick Vehicle Analysis",
+    iconSrc: "/search.svg"
   },
   {
-    id:2,
-    value:"Add maintenance",
-    iconSrc:"/search.svg"
+    id: 2,
+    value: "Add maintenance",
+    iconSrc: "/search.svg"
   },
   {
-    id:1,
-    value:"Quick Vehicle Analysis",
-    iconSrc:"/search.svg"
+    id: 1,
+    value: "Quick Vehicle Analysis",
+    iconSrc: "/search.svg"
   },
   {
-    id:2,
-    value:"Add maintenance",
-    iconSrc:"/search.svg"
+    id: 2,
+    value: "Add maintenance",
+    iconSrc: "/search.svg"
   },
 ]
 const Main = () => {
@@ -124,79 +124,6 @@ const Main = () => {
           <SideChatComponent />
         </section>
 
-        {/*  */}
-     <div className='flex flex-col lg:flex-row gap-y-4 lg:gap-x-6'>
-  {/* car image section */}
-<section className='lg:w-[70%] flex flex-col gap-y-4'>
-  <div className='relative w-full h-[250px] lg:min-h-[350px]'>
-  <Image alt='car' src={"/car.svg"} fill  className='absolute w-full h-full object-cover rounded-lg'/>
-  </div>
-  {/* health */}
-  <div className='flex flex-wrap bg-[var(--light-one)] rounded-lg py-4'>
-{health.map((item,index)=>{
-
-  return <aside key={index + 1} className={`flex flex-col w-[25%]  items-center   font-light  ${index == 0 ? "" : "border-l border-l-[var(--stroke)]"}`} >
-    <span className='font-semibold lg:text-[1.1rem]'>{item.percent}</span>
-    <span className='text-[0.7rem]'>{item.value}</span>
-  </aside>
-})}
-  </div>
-</section>
-{/* Chat section */}
-<section className='bg-[var(--light-one)] p-4 rounded-lg lg:w-[30%] flex flex-col justify-between'>
-  {/* first section */}
-  <div>
-<h1 className='font-semibold text-lg'>Chat AI</h1>
-<div className=''>
-  {chatAiData.map((item,index)=>{
-    
-    return <Button className='font-light w-full px-0 my-2 text-[var(--text-color-one)] flex items-center justify-start pl-16 py-6' key={index + 1}>
-
-      <img src={item.iconSrc} alt={item.value} />
-      <span className='text-left'>{item.value}</span>
-    </Button>
-  })}
-</div>
-  </div>
-  {/* chat */}
-  <div className='bg-[var(--light-one)] rounded-lg p-2'>
-    <Textarea
-    className=' border-none h-[70px] overflow-hidden px-0 border-0 outline-none focus-visible:ring-0 focus-visible:ring-offset-0'
-    style={{
-      background:"transparent",
-      resize:"none"
-    }}
-    defaultValue={"Lorem ipsum dolor sit amet consecte tur Amet velit amet "}
-    />
-   <footer className='flex justify-between'>
-    <section className='flex justify-between gap-x-3 items-center'>
-      <span className='cursor-pointer'><Globe size={18}/></span>
-      <span className='cursor-pointer'><Radio size={18}/></span>
-      <span className='cursor-pointer'><Paperclip size={18}/></span>
-      <span className='cursor-pointer'><Mic size={18}/></span>
-    </section>
-    <Button  className='text-[var(--text-color-one)] cursor-pointer'><ArrowRight/></Button>
-   </footer>
-  </div>
-</section>
-
-
-     </div>
-
-{/* alert, overview, Maintanance */}
-
-     <div className='my-6'>
-      <header className=''>
-        <Button onClick={(e:React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
-          variant={currBtn == "overview" ? "default" : "ghost"}
-          >Overview</Button>
-        <Button
-        onClick={(e:React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
-        variant={currBtn == "alert" ? "default" : "ghost"}>Alert</Button>
-        <Button onClick={(e:React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
-          variant={currBtn == "maintanance" ? "default" : "ghost"}
-          >Maintanance</Button>
-      </header>
 
       </div>
 
