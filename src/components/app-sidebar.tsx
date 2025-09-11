@@ -3,28 +3,19 @@
 import * as React from "react"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Calendar,
   Command,
   Contact,
-  Frame,
+
   GalleryVerticalEnd,
   Headset,
-  Map,
-  Navigation,
-  Navigation2,
   Navigation2Icon,
-  PieChart,
-  Plus,
-  Settings2,
   SquareTerminal,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -33,12 +24,11 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Button } from "./ui/button"
 import Image from "next/image"
 import { useSelector } from "react-redux"
 import { RootStoreType } from "@/app/store"
 
-// This is sample data.
+
 const data = {
   user: {
     name: "osagie",
@@ -62,7 +52,7 @@ const data = {
       plan: "Free",
     },
   ],
-  needHelp:[
+  needHelp: [
     {
       title: "Support",
       url: "#",
@@ -115,64 +105,71 @@ const data = {
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Frame,
+      // icon: Frame,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: PieChart,
+      // icon: PieChart,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const mobileSidebarState = useSelector((store:RootStoreType)=>{
+  const mobileSidebarState = useSelector((store: RootStoreType) => {
 
     return store.mobileSidebarSlice
   })
   return (
     <Sidebar collapsible="icon"   {...props}>
       {/* header */}
-   
-<SidebarHeader className={`flex flex-row justify-between items-center ${mobileSidebarState? "lg:justify-center justify-end" : ""}`}>
-{!mobileSidebarState &&  <Image
-    width={40}
-    height={20}
-    alt="logo"
-    src="/logo-two.svg"
-    className="object-contain lg:inline hidden"
-  />}
-  <SidebarTrigger className="-ml-1" />
-</SidebarHeader>
+
+      <SidebarHeader className={`flex flex-row justify-between items-center ${mobileSidebarState ? "lg:justify-center justify-end" : ""}`}>
+        {!mobileSidebarState && <Image
+          width={40}
+          height={20}
+          alt="logo"
+          src="/logo-two.svg"
+          className="object-contain lg:inline hidden"
+        />}
+        <SidebarTrigger className="-ml-1" />
+      </SidebarHeader>
+
+
+
+      {/* <SidebarMenuButton className="">
+        <Button className="w-full text-white"></Button>
     
-    {/* content */}
+      </SidebarMenuButton> */}
+      {/* content */}
       <SidebarContent className="">
+
         <NavProjects projects={data.projects} />
         <NavMain items={data.navMain} />
         <NavMain items={data.needHelp} />

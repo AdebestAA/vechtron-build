@@ -1,23 +1,20 @@
 "use client"
-import { ArrowLeft, ArrowRight, ChevronDown, Globe, Menu, Mic, Moon, Paperclip, Pencil, Plus, Radio, Sun, X } from 'lucide-react'
+import { ChevronDown, Pencil, Plus, } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 
-import Image from 'next/image'
-
-import { Textarea } from "@/components/ui/textarea"
 import gsap from 'gsap'
-import { useDispatch, useSelector } from 'react-redux'
-import { dispatchType, RootStoreType } from '@/app/store'
-import { closeMobileSidebar, openMobileSidebar } from '@/app/store/slices/mobileSidebarSlice'
-import { SidebarTrigger } from '../ui/sidebar'
+import { useSelector } from 'react-redux'
+import { RootStoreType } from '@/app/store'
 import OverviewComponent from './OverviewComponent'
 import Maintenance from './Maintenance'
-import UseChangeThemeMode from '@/hooks/UseChangeThemeMode'
+import DashboardHeader from './dashboard-header'
+import SideChatComponent from './side-chat-component'
+import DashBoardImageDisplay from './dashboard-image-display'
 
 
 
-const health = [
+export const health = [
   {
     id:1,
     percent:"20%",
@@ -40,7 +37,7 @@ const health = [
   },
 ]
 
-const chatAiData = [
+export const chatAiData = [
   {
     id:1,
     value:"Quick Vehicle Analysis",
@@ -63,87 +60,69 @@ const chatAiData = [
   },
 ]
 const Main = () => {
-    const {toggleTheme,theme} = UseChangeThemeMode()
-    const [currBtn,setCurrBtn] = useState("overview")
-const dispatch = useDispatch<dispatchType>()
-    const mobileSidebarState = useSelector((store:RootStoreType)=>{
+  // const { theme, setTheme } = useTheme()
+  const [currBtn, setCurrBtn] = useState("overview")
+  // const dispatch = useDispatch<dispatchType>()
+  const mobileSidebarState = useSelector((store: RootStoreType) => {
 
-      return store.mobileSidebarSlice
-    })
-  
+    return store.mobileSidebarSlice
+  })
 
-    useEffect(()=>{
-      if (mobileSidebarState) {
-        gsap.to(document.querySelector(".mobile-sidebar"),{
-          left:"0%",
-          display:"block",
-          duration:0.5
-        
-        })
-      }
-      else{
-        gsap.to(document.querySelector(".mobile-sidebar"),{
-          left:"-50%",
-          display:"none",
-          duration:0.5
-     
+
+
+  useEffect(() => {
+    if (mobileSidebarState) {
+      gsap.to(document.querySelector(".mobile-sidebar"), {
+        left: "0%",
+        display: "block",
+        duration: 0.5
+
       })
-      
-      }
-    },[mobileSidebarState])
+    }
+    else {
+      gsap.to(document.querySelector(".mobile-sidebar"), {
+        left: "-50%",
+        display: "none",
+        duration: 0.5
+
+      })
+
+    }
+  }, [mobileSidebarState])
   return (
     <div className='lg:min-w-[80%] w-full lg:px-8 px-4 my-4 '>
       {/* header */}
-        <header className='flex justify-between '>
-            <h1 className='font-semibold'>Vehicle</h1>
-            <>
-            {/* btn for mobile */}
-            <div className='lg:hidden block'>
-            <Button className='cursor-pointer'  variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun/> : <Moon/>}</Button>
-            <SidebarTrigger className="-ml-1" />
-            {/* <Button 
-            onClick={()=>{
-             
-            if (mobileSidebarState) {
-              dispatch(closeMobileSidebar())
-            }
-            else{
-              
-              dispatch(openMobileSidebar())
-            }
-            
-            
-              }}
-             
-              className='md:hidden cursor-pointer' variant={"ghost"}>{ mobileSidebarState ?<X/>: <Menu/>}</Button> */}
-              </div>
-            <div className='lg:block hidden'>
-            <Button className='cursor-pointer'  variant={"ghost"} onClick={toggleTheme} >{theme == "dark" ? <Sun/> : <Moon/>}</Button>
-            {Array(4).fill("").map((item,index)=>{
+      <DashboardHeader />
 
-                return    <Button key={index} className='cursor-pointer bg-[#DDC7DF] mx-1 p-3'   onClick={toggleTheme} >{index == 0 ? "Upgrade" : "#1"}</Button>
-              })}
-            </div>
-              </>
-        </header>
+      {/* name of vehicle */}
 
-        {/* name of vehicle */}
-        <div className='flex justify-between mt-4'>
-          <div className='flex flex-col'>
+      <div className='flex justify-between mt-4'>
+        <div className='flex flex-col'>
           <Button variant={"ghost"} className='px-0'>
             <span className='text-2xl font-semibold'>2024 Rav4 Toyota</span>
-             <span><ChevronDown/></span></Button>
-             <Button variant={"ghost"} className='px-0 flex justify-start text-sm font-light'>
-             <span>Edit Vehicle</span>
-             <span><Pencil /></span></Button>
-            
-          </div>
-          {/* add vehivel */}
-          <>
-          <Button className='text-[var(--text-color-one)] lg:hidden'><Plus/></Button>
-          <Button className='text-[var(--text-color-one)] lg:inline hidden'>Add new Vehicle</Button>
-          </>
+            <span><ChevronDown /></span></Button>
+          <Button variant={"ghost"} className='px-0 flex justify-start text-sm font-light'>
+            <span>Edit Vehicle</span>
+            <span><Pencil /></span></Button>
+
         </div>
+        {/* add vehivel */}
+        <>
+          <Button className='text-[var(--text-color-one)] lg:hidden'><Plus /></Button>
+          <Button className='text-[var(--text-color-one)] lg:flex px-2 hidden'><Plus /> Add new Vehicle</Button>
+        </>
+      </div>
+
+      {/*  */}
+      <div className='flex flex-col lg:flex-row gap-y-4 lg:gap-x-6'>
+        {/* car image section */}
+        <section className='lg:w-[70%] flex flex-col gap-y-4'>
+          <DashBoardImageDisplay />
+        </section>
+        {/* Chat section */}
+        <section className='bg-[var(--light-one)] p-4 rounded-lg lg:w-[30%] flex flex-col justify-between'>
+          <SideChatComponent />
+        </section>
 
         {/*  */}
      <div className='flex flex-col lg:flex-row gap-y-4 lg:gap-x-6'>
@@ -219,10 +198,27 @@ const dispatch = useDispatch<dispatchType>()
           >Maintanance</Button>
       </header>
 
-      <>
-      {currBtn == "overview" ? <OverviewComponent/> :currBtn == "maintanance" ? <Maintenance/> :""}
-      </>
-     </div>
+      </div>
+
+      {/* alert, overview, Maintanance */}
+
+      <div className='my-6'>
+        <header className='space-x-2'>
+          <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+            variant={currBtn == "overview" ? "default" : "ghost"}
+          >Overview</Button>
+          <Button
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+            variant={currBtn == "alert" ? "default" : "ghost"}>Alert</Button>
+          <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+            variant={currBtn == "maintanance" ? "default" : "ghost"}
+          >Maintanance</Button>
+        </header>
+
+        <>
+          {currBtn == "overview" ? <OverviewComponent /> : currBtn == "maintanance" ? <Maintenance /> : ""}
+        </>
+      </div>
     </div>
   )
 }

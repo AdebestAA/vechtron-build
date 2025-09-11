@@ -34,7 +34,7 @@ export function ScheduleCalendar() {
 
 
     {/* card */}
-    <Card className="p-4 bg-transparent border-none min-w-[500px]" >
+    <Card className="p-4 bg-transparent border-none " >
       <div className="flex justify-end mb-2">
         <select
           onChange={handleMonthChange}

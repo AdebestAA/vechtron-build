@@ -1,6 +1,4 @@
 "use client"
-import { Card } from "@/components/ui/card";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
 import {
@@ -19,9 +17,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { dispatchType, RootStoreType } from "./store";
 import { closeModal, openModal } from "./store/slices/modalSlice";
 
+// import { useSelector } from "react-redux";
+// import { RootStoreType } from "./store";
+
+
 export default function Home() {
-  const dispatch = useDispatch<dispatchType>()
+
+  // const dispatch = useDispatch<dispatchType>()
   // const modalState = useSelector((store:RootStoreType)=>{
+
+  //   return store.modalReducer
+  // })
+  // const isOpen = useSelector((state: RootStoreType) => state.modalReducer)
+
+  return (
+    <div className="">
+      <main className="relative isolate min-h-screen bg-background">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(600px_300px_at_50%_-20%,color-mix(in_oklab,var(--color-primary)_28%,transparent),transparent_60%)]"
+        />
 
   //   return store.modalReducer
   // })
