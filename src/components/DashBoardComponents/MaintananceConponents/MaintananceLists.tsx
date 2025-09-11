@@ -3,64 +3,64 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { ChevronDown, TriangleAlert } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
+import React, { useState } from 'react'
 const maintananceListData = [
-    {
-        id: 1,
-        title: "Oil Change Required",
-        status: "Urgent",
-        percentageInfo: "Steering Fluid at",
-        percentage: 43,
-        info: "Schedule oil change within next 500 miles"
-    },
-    {
-        id: 1,
-        title: "Oil Change Required",
-        status: "Urgent",
-        percentageInfo: "Steering Fluid at",
-        percentage: 15,
-        info: "Schedule oil change within next 500 miles"
-    },
-    {
-        id: 1,
-        title: "Oil Change Required",
-        status: "Urgent",
-        percentageInfo: "Steering Fluid at",
-        percentage: 75,
-        info: "Schedule oil change within next 500 miles"
-    },
-    {
-        id: 1,
-        title: "Oil Change Required",
-        status: "Urgent",
-        percentageInfo: "Steering Fluid at",
-        percentage: 64,
-        info: "Schedule oil change within next 500 miles"
-    },
-    {
-        id: 1,
-        title: "Coolant Level Low",
-        status: "Urgent",
-        percentageInfo: "Oil life at",
-        percentage: 84,
-        info: "Schedule oil change within next 500 miles"
-    },
-    {
-        id: 1,
-        title: "Coolant Level Low",
-        status: "Urgent",
-        percentageInfo: "Oil life at",
-        percentage: 38,
-        info: "Schedule oil change within next 500 miles"
-    },
-    {
-        id: 1,
-        title: "Coolant Level Low",
-        status: "Urgent",
-        percentageInfo: "Oil life at",
-        percentage: 35,
-        info: "Schedule oil change within next 500 miles"
-    },
+{
+    id:1,
+    title:"Oil Change Required",
+    status:"Urgent",
+    percentageInfo:"Steering Fluid at",
+    percentage:43,
+    info:"Schedule oil change within next 500 miles"
+},
+{
+    id:1,
+    title:"Oil Change Required",
+    status:"Urgent",
+    percentageInfo:"Steering Fluid at",
+    percentage:15,
+    info:"Schedule oil change within next 500 miles"
+},
+{
+    id:1,
+    title:"Oil Change Required",
+    status:"Urgent",
+    percentageInfo:"Steering Fluid at",
+    percentage:75,
+    info:"Schedule oil change within next 500 miles"
+},
+{
+    id:1,
+    title:"Oil Change Required",
+    status:"Urgent",
+    percentageInfo:"Steering Fluid at",
+    percentage:64,
+    info:"Schedule oil change within next 500 miles"
+},
+{
+    id:1,
+    title:"Coolant Level Low",
+    status:"Urgent",
+    percentageInfo:"Oil life at",
+    percentage:84,
+    info:"Schedule oil change within next 500 miles"
+},
+{
+    id:1,
+    title:"Coolant Level Low",
+    status:"Urgent",
+    percentageInfo:"Oil life at",
+    percentage:38,
+    info:"Schedule oil change within next 500 miles"
+},
+{
+    id:1,
+    title:"Coolant Level Low",
+    status:"Urgent",
+    percentageInfo:"Oil life at",
+    percentage:35,
+    info:"Schedule oil change within next 500 miles"
+},
 ]
 
 const MaintananceLists = () => {
@@ -78,8 +78,9 @@ const MaintananceLists = () => {
                 </div>
             </header>
 
-            <section className='flex flex-wrap justify-between items-start gap-y-4 my-6'>
-                {maintananceListData.map((item, index) => {
+        <section className='flex flex-wrap justify-between items-start gap-y-4 my-6'>
+            {maintananceListData.map((item,index)=>{
+
 
                     return <div key={index + 1} className='bg-[var(--overview-container)] md:mx-0 mx-auto w-[95%] md:w-[45%] lg:w-[30%] rounded-lg text-white px-4 py-4 '>
                         <aside className='flex justify-between items-center'>
@@ -105,6 +106,7 @@ const MaintananceLists = () => {
             </section>
         </div>
     )
+
 }
 
 export default MaintananceLists

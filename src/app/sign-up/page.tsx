@@ -18,6 +18,9 @@ const Page = () => {
     const [curr, setCurr] = useState<number>(0)
 
 
+    useEffect(()=>{
+console.log(theme);
+
     useEffect(() => {
         const intervalId = setInterval(() => {
             if (curr == desktopImageSlide.length - 1) {
@@ -192,14 +195,14 @@ const Page = () => {
 
                 </div> */}
 
-
-            </section>
+}
 
             {/* Second section */}
             <SignupForm />
 
         </div>
     )
+
 }
 
 export default Page
