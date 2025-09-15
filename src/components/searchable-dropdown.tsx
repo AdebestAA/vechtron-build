@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
 import { useOnBoardingFormStore } from "@/app/store/zustand-stores/useOnboardingForm"
+import { useModalStore } from "@/app/store/zustand-stores/useModelStore"
+
 
 
 type optionType = {
@@ -36,8 +38,10 @@ const SearchableDropDown = ({
     const [visibleOptions, setVisibleOptions] = useState(options.slice(0, 100))
     const [selectedValue, setSelectedValue] = useState<string>()
     const [searchQuery, setSearchQuery] = useState<string>("")
+    const { openModal } = useModalStore()
 
     const { updateForm } = useOnBoardingFormStore()
+    const { form } = useOnBoardingFormStore()
 
     useEffect(() => {
         if (buttonRef.current) {
@@ -49,6 +53,19 @@ const SearchableDropDown = ({
     useEffect(() => {
         setAllOptions(options)
     }, [options])
+
+    useEffect(() => {
+        if (allOptions.length < 1 && form.make) {
+            openModal("unable to load make id")
+            return
+        }
+        if (!form.make) {
+            return
+        }
+        const findId = allOptions.find(item => item.Make_Name == form.make.toLocaleUpperCase())
+        updateForm("makeId", findId?.Make_ID.toString() as string)
+
+    }, [form.make, allOptions, updateForm, openModal])
 
     useEffect(() => {
         if (!searchQuery) {

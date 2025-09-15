@@ -5,5 +5,10 @@ const Spinner = () => {
     <span className="loader"></span>
   )
 }
+export const ChatSpinner = () => {
+  return (
+    <span className="chart-loader"></span>
+  )
+}
 
 export default Spinner

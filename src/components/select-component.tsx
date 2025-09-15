@@ -9,7 +9,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-export function SelectComponent({ placeholder, options, valueKey }: { valueKey: string, placeholder: string, options?: { label: string, value: string }[] }) {
+export function SelectComponent({ placeholder, options, valueKey, classVariable }: { valueKey: string, placeholder: string, options?: { label: string, value: string }[], classVariable?: string }) {
 
     const { updateForm } = useOnBoardingFormStore()
 
@@ -21,7 +21,7 @@ export function SelectComponent({ placeholder, options, valueKey }: { valueKey: 
 
             updateForm(valueKey, value)
         }} >
-            <SelectTrigger className="w-full py-6">
+            <SelectTrigger className={`w-full py-6 ${classVariable}`}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>

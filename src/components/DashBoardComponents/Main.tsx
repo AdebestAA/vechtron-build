@@ -11,6 +11,9 @@ import Maintenance from './Maintenance'
 import DashboardHeader from './dashboard-header'
 import SideChatComponent from './side-chat-component'
 import DashBoardImageDisplay from './dashboard-image-display'
+import AsideChat from './aside-chat'
+import { useSideChatStore } from '@/app/store/zustand-stores/use-show-side-chat'
+import { useRouter } from 'next/navigation'
 
 
 
@@ -67,7 +70,9 @@ const Main = () => {
 
     return store.mobileSidebarSlice
   })
+  const { sideChatState, openSideChat, closeSideChat } = useSideChatStore()
 
+  const router = useRouter()
 
 
   useEffect(() => {
@@ -88,64 +93,76 @@ const Main = () => {
       })
 
     }
-  }, [mobileSidebarState])
+  }, [mobileSidebarState,])
   return (
-    <div className='lg:min-w-[80%] w-full lg:px-8 px-4 my-4 '>
-      {/* header */}
-      <DashboardHeader />
+    <div className='lg:min-w-[80%] w-full   flex '>
+      <section className={`lg:px-8 px-4 py-4 transition-[width] duration-500 ease-in-out ${sideChatState ? "md:w-[70%] " : "w-full"} `}>
 
-      {/* name of vehicle */}
+        {/* header */}
+        <DashboardHeader />
 
-      <div className='flex justify-between mt-4'>
-        <div className='flex flex-col'>
-          <Button variant={"ghost"} className='px-0'>
-            <span className='text-2xl font-semibold'>2024 Rav4 Toyota</span>
-            <span><ChevronDown /></span></Button>
-          <Button variant={"ghost"} className='px-0 flex justify-start text-sm font-light'>
-            <span>Edit Vehicle</span>
-            <span><Pencil /></span></Button>
+        {/* name of vehicle */}
+
+        <div className='flex justify-between mt-4'>
+          <div className='flex flex-col'>
+            <Button variant={"ghost"} className='px-0'>
+              <span className='text-2xl font-semibold'>2024 Rav4 Toyota</span>
+              <span><ChevronDown /></span></Button>
+            <Button variant={"ghost"} className='px-0 flex justify-start text-sm font-light'>
+              <span>Edit Vehicle</span>
+              <span><Pencil /></span></Button>
+
+          </div>
+          {/* add vehicle */}
+          <>
+            <Button onClick={() => router.push("/onboarding")} className='text-[var(--text-color-one)] lg:hidden'><Plus /></Button>
+            <Button
+              onClick={() => router.push("/onboarding")}
+              className='text-[var(--text-color-one)] lg:flex px-2 hidden'><Plus /> Add new Vehicle</Button>
+          </>
+        </div>
+
+        {/*  */}
+        <div className='flex flex-col lg:flex-row gap-y-4 lg:gap-x-6'>
+          {/* car image section */}
+          <section
+            onClick={closeSideChat}
+            className={`${sideChatState ? "lg:w-full" : "lg:w-[70%]"} flex flex-col gap-y-4 transition-[width] duration-500 ease-in-out`}>
+            <DashBoardImageDisplay />
+          </section>
+          {/* Chat section */}
+          <section
+            onClick={openSideChat}
+            className={`bg-[var(--light-one)] p-4 rounded-lg  flex flex-col justify-between transition-[width] duration-500 ease-in-out ${sideChatState ? "w-0 hidden" : "md:w-[30%] md:block hidden "} `}>
+            <SideChatComponent />
+          </section>
+
 
         </div>
-        {/* add vehivel */}
-        <>
-          <Button className='text-[var(--text-color-one)] lg:hidden'><Plus /></Button>
-          <Button className='text-[var(--text-color-one)] lg:flex px-2 hidden'><Plus /> Add new Vehicle</Button>
-        </>
-      </div>
 
-      {/*  */}
-      <div className='flex flex-col lg:flex-row gap-y-4 lg:gap-x-6'>
-        {/* car image section */}
-        <section className='lg:w-[70%] flex flex-col gap-y-4'>
-          <DashBoardImageDisplay />
-        </section>
-        {/* Chat section */}
-        <section className='bg-[var(--light-one)] p-4 rounded-lg lg:w-[30%] flex flex-col justify-between'>
-          <SideChatComponent />
-        </section>
+        {/* alert, overview, Maintanance */}
 
+        <div className='my-6'>
+          <header className='space-x-2'>
+            <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+              variant={currBtn == "overview" ? "default" : "ghost"}
+            >Overview</Button>
+            <Button
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+              variant={currBtn == "alert" ? "default" : "ghost"}>Alert</Button>
+            <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+              variant={currBtn == "maintanance" ? "default" : "ghost"}
+            >Maintanance</Button>
+          </header>
 
-      </div>
-
-      {/* alert, overview, Maintanance */}
-
-      <div className='my-6'>
-        <header className='space-x-2'>
-          <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
-            variant={currBtn == "overview" ? "default" : "ghost"}
-          >Overview</Button>
-          <Button
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
-            variant={currBtn == "alert" ? "default" : "ghost"}>Alert</Button>
-          <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
-            variant={currBtn == "maintanance" ? "default" : "ghost"}
-          >Maintanance</Button>
-        </header>
-
-        <>
-          {currBtn == "overview" ? <OverviewComponent /> : currBtn == "maintanance" ? <Maintenance /> : ""}
-        </>
-      </div>
+          <>
+            {currBtn == "overview" ? <OverviewComponent /> : currBtn == "maintanance" ? <Maintenance /> : ""}
+          </>
+        </div>
+      </section>
+      <section className={`bg-[var(--light-one)] px-4 py-4 flex flex-col justify-between min-h-screen transition-[width] duration-500 ease-in-out ${sideChatState ? "lg:w-[30%] block" : "w-0 hidden"}`}>
+        <AsideChat />
+      </section>
     </div>
   )
 }

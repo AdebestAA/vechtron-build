@@ -15,6 +15,7 @@ import SearchableDropDown from '../searchable-dropdown'
 import z from 'zod'
 import { useModalStore } from '@/app/store/zustand-stores/useModelStore'
 import { useRouter } from 'next/navigation'
+import { odometerUnits } from '@/utils/odometer-units'
 
 const url = process.env.NEXT_PUBLIC_API_URL as string
 
@@ -50,7 +51,7 @@ const fetchVehicleMakes = async () => {
             "https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json"
         );
         const data = await response.json();
-        console.log(data.Results);
+        // console.log(data.Results);
         return data.Results
 
     } catch (error) {
@@ -141,7 +142,7 @@ export const isVehicleOwner = async () => {
 }
 
 
-const ThirdPage = () => {
+const AiResponse = () => {
 
     const { updateForm, form } = useOnBoardingFormStore()
     const { openModal } = useModalStore()
@@ -298,8 +299,8 @@ const ThirdPage = () => {
 
             <form className=' flex flex-col  justify-evenly  ' onSubmit={handleSubmit}>
                 <header className='text-center'>
-                    <h1 className='lg:text-4xl md:text-3xl text-2xl font-semibold'>Customize your vehicle profile</h1>
-                    <p>Enter your vehicle details to get personalized maintenance reminders</p>
+                    <h1 className='lg:text-4xl md:text-3xl text-2xl font-semibold'>Edit AI Response</h1>
+                    {/* <p>Enter your vehicle details to get personalized maintenance reminders</p> */}
                 </header>
                 <div className='flex flex-wrap md:justify-between lg:px-32 md:px-8'>
 
@@ -308,8 +309,8 @@ const ThirdPage = () => {
                         <Label className='my-2'>Vehicle Make <span><Asterisk className='text-[red]' size={15} /></span></Label>
                         <SearchableDropDown
 
-                            value='' options={vehicleMakesIsLoading ? [] : vehicleMakesData}
-                            placeholder={vehicleMakesIsLoading ? "loading..." : "Select an option..."}
+                            value={form.make ? form.make.toLocaleUpperCase() : ""} options={vehicleMakesIsLoading ? [] : vehicleMakesData}
+                            placeholder={form.make ? form.make.toLocaleUpperCase() : "select an option"}
                             onChange={(value) => {
                                 // console.log("value from onchange", value);
                                 updateForm("make", value)
@@ -327,7 +328,7 @@ const ThirdPage = () => {
                             disabled={modelLoadingState ? true : false}
                             type='number'
                             placeholder='enter year'
-                            className='w-full py-6'
+                            className={`w-full py-6 ${form.year ? "" : "border-1 border-red-500"}`}
                             value={form.year}
                             onChange={(e) => {
                                 updateForm("year", e.target.value)
@@ -339,6 +340,7 @@ const ThirdPage = () => {
                     <aside className='lg:w-[45%] w-full '>
                         <Label className='my-2'>Vehicle model <span><Asterisk className='text-[red]' size={15} /></span></Label>
                         <SelectComponent
+
                             valueKey="model"
                             options={models.length > 0 ? models.map((item: vehicleModelType, index) => {
                                 console.log(index);
@@ -347,14 +349,17 @@ const ThirdPage = () => {
                                     label: item.Model_Name,
                                     value: item.Model_Name
                                 }
-                            }) : []} placeholder={modelLoadingState ? "loading" : "vehicle model"} />
+                            }) : []} placeholder={form.model && !modelLoadingState ? form.model : modelLoadingState ? "loading" : "vehicle model"} />
                     </aside>
                     {/* Vehicle type */}
                     <aside className='lg:w-[45%] w-full '>
                         <Label className='my-2'>Vehicle type <span><Asterisk className='text-[red]' size={15} /></span></Label>
                         <SelectComponent
                             valueKey="type"
-                            options={vehicleTypes} placeholder="vehicle type" />
+                            classVariable={`${form.type ? "" : "border-1 border-red-500"}`}
+                            options={vehicleTypes}
+                            placeholder={form.type ? vehicleTypes.find(item => item.value == form.type)?.label as string : "select vehicle type"}
+                        />
                     </aside>
                     {/* VIN */}
                     <aside className='lg:w-[45%] w-full '>
@@ -374,7 +379,7 @@ const ThirdPage = () => {
                         <Label className='my-2'>Licence Plate (Optional)</Label>
                         <Input
                             placeholder='enter license plate'
-                            className='w-full py-6'
+                            className={`w-full py-6`}
                             value={form.license_plate}
                             onChange={(e) => {
 
@@ -388,7 +393,9 @@ const ThirdPage = () => {
                         <Label className='my-2'>Odometer Unit<span><Asterisk className='text-[red]' size={15} /></span></Label>
                         <SelectComponent
                             valueKey="odometer_unit"
-                            options={[{ value: "mi", label: "Miles" }, { value: "km", label: "Kilometers" }]} placeholder="select odometer unit" />
+                            classVariable={`${form.odometer_unit ? "" : "border-2 border-red-500"}`}
+                            options={odometerUnits}
+                            placeholder={form.odometer_unit ? odometerUnits.find(item => item.value == form.odometer_unit)?.label as string : "select odometer unit"} />
                     </aside>
 
                     {/* Vehicel Name */}
@@ -410,7 +417,7 @@ const ThirdPage = () => {
                         <Input
                             type='number'
                             placeholder='enter odometer reading'
-                            className='w-full py-6'
+                            className={`w-full py-6 ${form.odometer ? "" : "border-1 border-red-500"}`}
                             value={form.odometer}
                             onChange={(e) => {
 
@@ -440,7 +447,7 @@ const ThirdPage = () => {
     )
 }
 
-export default ThirdPage
+export default AiResponse
 
 
 

@@ -52,7 +52,7 @@ const url = process.env.NEXT_PUBLIC_AI_API_URL as string
 // }
 
 
-const SecondPage = () => {
+const AddVehicleWithAi = () => {
     const { increment, decrement } = useOnBoardingSlideState()
     const [userInput, setUserInput] = useState<string>("")
     const { updateAll } = useOnBoardingFormStore()
@@ -192,7 +192,9 @@ const SecondPage = () => {
             <main className='md:min-h-[80vh] flex flex-col  justify-evenly  '>
                 <h1 className='md:text-3xl text-2xl font-semibold text-center'>Describe what your car looks like in a sentence or two </h1>
 
-                <form onSubmit={handleSubmit} className='flex justify-between items-center  rounded-lg border-1 border-stroke md:w-[90%] w-full mx-auto  py-3 px-2 my-4'>
+                <form
+                    onSubmit={handleSubmit}
+                    className='flex justify-between items-center  rounded-lg border-1 border-stroke md:w-[90%] w-full mx-auto  py-3 px-2 my-4'>
                     <Input
                         type='text'
                         value={userInput}
@@ -203,6 +205,7 @@ const SecondPage = () => {
                     />
                     <Button variant={"ghost"}
                         type='submit'
+                        // onClick={incrementByTwo}
                         className='cursor-pointer' >{mutation.isPending ? <Spinner /> : <ArrowRight />}</Button>
                 </form>
                 <div className='flex gap-x-2  justify-center '>
@@ -218,4 +221,4 @@ const SecondPage = () => {
     )
 }
 
-export default SecondPage
+export default AddVehicleWithAi

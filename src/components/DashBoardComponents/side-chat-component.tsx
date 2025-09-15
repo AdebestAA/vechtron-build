@@ -4,7 +4,9 @@ import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
 import { ArrowRight, Globe, Mic, Paperclip, Radio } from 'lucide-react'
 
+
 const SideChatComponent = () => {
+
     return (
         <>
             {/* first section */}
@@ -38,7 +40,9 @@ const SideChatComponent = () => {
                         <span className='cursor-pointer'><Paperclip size={18} /></span>
                         <span className='cursor-pointer'><Mic size={18} /></span>
                     </section>
-                    <Button className='text-[var(--text-color-one)] cursor-pointer'><ArrowRight /></Button>
+                    <Button
+                        // onClick={closeSideChat}
+                        className='text-[var(--text-color-one)] cursor-pointer'><ArrowRight /></Button>
                 </footer>
             </div>
         </>

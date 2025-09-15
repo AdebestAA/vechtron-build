@@ -1,14 +1,22 @@
 "use client"
 import FirstPage from '@/components/onboarding-components/first-page'
-import SecondPage from '@/components/onboarding-components/second-page'
-import ThirdPage from '@/components/onboarding-components/third-page'
+
 import { useOnBoardingSlideState } from '../store/zustand-stores/useOnBoardingSlideState'
-import FourthPage from '@/components/onboarding-components/fourth-page'
+
+import { useEffect } from 'react'
+import EnterDetailsMyself from '@/components/onboarding-components/enter-details-myself'
+import AddVehicleWithAi from '@/components/onboarding-components/add-vehicle-with-ai'
+import AiResponse from '@/components/onboarding-components/ai-response'
 // import { useModalStore } from '../store/zustand-stores/useModelStore'
 
 const Page = () => {
 
     const { value, } = useOnBoardingSlideState()
+
+    useEffect(() => {
+        console.log(value);
+
+    }, [value])
     // const { openModal } = useModalStore()
     // useEffect(() => {
     //     openModal("you have created a vehicle successfully")
@@ -20,10 +28,11 @@ const Page = () => {
             <div className='w-full flex transition-all ease-in-out duration-500'
                 style={{ transform: `translateX(-${value * 100}%)` }}
             >
-                <FourthPage />
-                <SecondPage />
+                {/* <FourthPage /> */}
+                <AiResponse />
+                <AddVehicleWithAi />
                 <FirstPage />
-                <ThirdPage />
+                <EnterDetailsMyself />
             </div>
         </div>
     )
