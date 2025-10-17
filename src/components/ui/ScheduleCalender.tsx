@@ -45,15 +45,15 @@ export function ScheduleCalendar() {
 
 
       {/* card */}
-      <Card className="p-4 bg-transparent border-none " >
+      <Card className="p-4 bg-transparent border-none  " >
         <article className="flex flex-wrap mb-2 ">
 
-          <div className="lg:w-[70%]  w-full">
+          <div className="lg:w-[70%]  w-full overflow-x-scroll ">
 
-            <aside className="w-full">
+            <aside className="w-full ">
               <select
                 onChange={handleMonthChange}
-                className="border px-2 py-1 rounded"
+                className="border px-2 py-1 rounded "
               >
                 {[
                   "January",
