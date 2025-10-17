@@ -126,9 +126,9 @@ const SignupForm = () => {
 
 
         // console.log(values);
-        setErrorMsg("")
-
-        mutation.mutate(values)
+        // setErrorMsg("")
+        router.push("/dashboard")
+        // mutation.mutate(values)
     }
     const [show, setShow] = useState({
         password: false,

@@ -85,9 +85,10 @@ const SigninForm = () => {
 
 
         // console.log(values);
+        router.push("/dashboard")
 
-        setErrorMsg("")
-        mutation.mutate(values)
+        // setErrorMsg("")
+        // mutation.mutate(values)
     }
 
 
@@ -223,11 +224,11 @@ const SigninForm = () => {
                             Sign In with Google
                         </Button>
                         <div className='opacity-0'>
-                            <GoogleLogin
+                            {/* <GoogleLogin
                                 onSuccess={handleSuccess}
                                 onError={handleError}
                                 theme="outline" size="large" text="continue_with" shape="pill"
-                            />
+                            /> */}
                         </div>
                     </article>
 

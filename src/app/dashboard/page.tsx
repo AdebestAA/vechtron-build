@@ -22,16 +22,16 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function Page() {
-  const [userExist, setUserExist] = useState<boolean>(false)
-  const router = useRouter()
-  useEffect(() => {
-    if (!localStorage.getItem("userInfo")) {
-      router.push("/sign-in")
-    }
-    else {
-      setUserExist(true)
-    }
-  }, [router])
+  const [userExist, setUserExist] = useState<boolean>(true)
+  // const router = useRouter()
+  // useEffect(() => {
+  //   if (!localStorage.getItem("userInfo")) {
+  //     router.push("/sign-in")
+  //   }
+  //   else {
+  //     setUserExist(true)
+  //   }
+  // }, [router])
 
   return (
     <>
