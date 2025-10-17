@@ -36,13 +36,13 @@ export default function Home() {
 
           <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/sign-up"
+              href="/dashboard"
               className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:w-auto"
             >
-              Create account
+              Dashboard
             </Link>
             <Link
-              href="/sign-in"
+              href="/onboarding"
               className="inline-flex w-full items-center justify-center rounded-lg border border-border bg-background px-5 py-3 text-sm font-medium text-foreground transition hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:w-auto"
             >
               Continue
@@ -50,9 +50,9 @@ export default function Home() {
           </div>
 
           <p className="mt-6 text-xs text-muted-foreground">
-            Already have an account?{" "}
-            <Link href="/sign-in" className="underline underline-offset-4">
-              Sign in
+            Dont have an account?{" "}
+            <Link href="/sign-up" className="underline underline-offset-4">
+              Sign up
             </Link>
           </p>
         </section>

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sidebar"
 import Spinner from "@/utils/Spinner"
 import { useQuery } from "@tanstack/react-query"
-const url = process.env.NEXT_PUBLIC_AI_API_URL as string
+const url = process.env.NEXT_PUBLIC_AI_API_URL as string || "okay"
 
 import { useEffect, useState } from "react"
 
@@ -32,12 +32,12 @@ export function NavProjects({
   // const { isMobile } = useSidebar()
   const [showAll, setShowAll] = useState<boolean>(false)
 
-  const { data: historyData, isLoading: historyIsLoading, isError: histroyIsError, error: historyError, isSuccess: historyIsSuccess } = useQuery({
-    queryKey: ["history"],
-    queryFn: getHistory
-  })
+  // const { data: historyData, isLoading: historyIsLoading, isError: histroyIsError, error: historyError, isSuccess: historyIsSuccess } = useQuery({
+  //   queryKey: ["history"],
+  //   queryFn: getHistory
+  // })
 
-  console.log(historyError);
+
 
   const { addHistory, chatHistory } = useChatHistory()
 
@@ -75,14 +75,14 @@ export function NavProjects({
   }
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (historyIsSuccess) {
-      addHistory(historyData?.data?.conversations)
+  //   if (historyIsSuccess) {
+  //     addHistory(historyData?.data?.conversations)
 
-    }
+  //   }
 
-  }, [historyIsLoading, addHistory])
+  // }, [historyIsLoading, addHistory])
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden ">
@@ -90,29 +90,29 @@ export function NavProjects({
       <SidebarMenu className="min-h-[150px] flex flex-col  justify-between">
 
         {/* loading data */}
-        {historyIsLoading && (
+        {/* {historyIsLoading && (
           <div className="flex flex-col items-center justify-center h-full">
 
             <Spinner />
             Loading..
           </div>
-        )}
+        )} */}
 
         {/* if an error occurs */}
-        {histroyIsError && (
+        {/* {histroyIsError && (
           <div className="flex flex-col items-center justify-center h-full">
 
 
             <p>Unable to load chats</p>
           </div>
-        )}
+        )} */}
 
         {/* an empty [] returned */}
-        {historyIsSuccess && chatHistory.length < 1 && (
+        {/* {historyIsSuccess && chatHistory.length < 1 && (
           <div className="flex flex-col items-center justify-center h-full">
             <p>You currently dont have any chat</p>
           </div>
-        )}
+        )} */}
         {/* [] more than one */}
         {chatHistory.length > 0 && chatHistory.filter(((item, index) => {
           if (showAll) {
@@ -125,7 +125,7 @@ export function NavProjects({
         })).map((item, index) => (
           <SidebarMenuItem key={index + 1}>
             <SidebarMenuButton asChild>
-              <a href={`/chat/${item.uuid}`}>
+              <a href={`/chat`}>
 
                 <span>{item.title.length > 30 ? item.title.slice(0, 25) + "..." : item.title}</span>
               </a>

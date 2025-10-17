@@ -48,15 +48,17 @@ const formDataSchema = z.object({
 // create vehicle function
 const postData = async (formState: OnBoardingFormType) => {
 
-    console.log(url);
+    // console.log(url);
 
     const accessToken = JSON.parse(localStorage.getItem("tokens") as string).accessToken
     const refreshToken = JSON.parse(localStorage.getItem("tokens") as string).refreshToken
-    console.log(refreshToken);
+    // console.log(refreshToken);
 
 
     if (!url) {
-        alert("end point not available")
+        // alert("end point not available")
+        console.log("endpoint not available");
+
         return
     }
 

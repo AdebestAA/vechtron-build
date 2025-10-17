@@ -23,7 +23,7 @@ import { useEffect, useState } from "react"
 
 export default function Page() {
   const [userExist, setUserExist] = useState<boolean>(true)
-  // const router = useRouter()
+  const router = useRouter()
   // useEffect(() => {
   //   if (!localStorage.getItem("userInfo")) {
   //     router.push("/sign-in")
@@ -38,9 +38,15 @@ export default function Page() {
       {userExist ? (
         <>
           <div className="md:hidden flex items-end flex-col gap-y-2  w-full fixed top-[50%] z-100  px-3">
-            <Button className="text-white shadow-2xl"><CarFront /></Button>
+            <Button
+              onClick={() => {
+                router.push("/onboarding")
+              }}
+              className="text-white shadow-2xl"><CarFront /></Button>
             {/* <br /> */}
-            <Button className="text-white shadow-2xl zoom"><MessageCircleMore /> chatA1 </Button>
+            <Button onClick={() => {
+              router.push("/chat")
+            }} className="text-white shadow-2xl zoom"><MessageCircleMore /> chatAI </Button>
 
 
           </div>

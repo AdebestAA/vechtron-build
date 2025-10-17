@@ -64,7 +64,7 @@ export const chatAiData = [
 ]
 const Main = () => {
   // const { theme, setTheme } = useTheme()
-  const [currBtn, setCurrBtn] = useState("overview")
+  const [currBtn, setCurrBtn] = useState("maintenance")
   // const dispatch = useDispatch<dispatchType>()
   const mobileSidebarState = useSelector((store: RootStoreType) => {
 
@@ -145,18 +145,18 @@ const Main = () => {
         <div className='my-6'>
           <header className='space-x-2'>
             <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
+              variant={currBtn == "maintenance" ? "default" : "ghost"}
+            >Maintanance</Button>
+            <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
               variant={currBtn == "overview" ? "default" : "ghost"}
             >Overview</Button>
             <Button
               onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
               variant={currBtn == "alert" ? "default" : "ghost"}>Alert</Button>
-            <Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrBtn(e.currentTarget.textContent?.toLocaleLowerCase() || "")}
-              variant={currBtn == "maintanance" ? "default" : "ghost"}
-            >Maintanance</Button>
           </header>
 
           <>
-            {currBtn == "overview" ? <OverviewComponent /> : currBtn == "maintanance" ? <Maintenance /> : ""}
+            {currBtn == "overview" ? <OverviewComponent /> : currBtn == "maintenance" ? <Maintenance /> : ""}
           </>
         </div>
       </section>

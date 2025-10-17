@@ -72,7 +72,9 @@ const postData = async (formState: OnBoardingFormType) => {
 
 
     if (!url) {
-        alert("end point not available")
+        // alert("end point not available")
+        console.log("end point not available");
+
         return
     }
 
@@ -292,7 +294,7 @@ const EnterDetailsMyself = () => {
                 <Button
 
                     variant={"ghost"}
-                    onClick={() => router.push("/push")}
+                    onClick={() => router.push("/dashboard")}
                     className='font-normal cursor-pointer md:inline hidden'>skip for now</Button>
             </article>
 
