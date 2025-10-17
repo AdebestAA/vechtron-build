@@ -72,6 +72,25 @@ const data = {
   ],
   navMain: [
     {
+      title: "Chat",
+      url: "/chat",
+      icon: Navigation2Icon,
+      items: [],
+    },
+    {
+      title: "Dashbaord",
+      url: "/dashboard",
+      icon: Navigation2Icon,
+      items: [],
+    },
+    {
+      title: "Calender",
+      url: "/calender",
+      icon: Calendar,
+      items: [],
+    },
+
+    {
       title: "Vehicle",
       url: "#",
       icon: SquareTerminal,
@@ -91,25 +110,6 @@ const data = {
         },
       ],
     },
-    {
-      title: "Chat",
-      url: "/chat",
-      icon: Navigation2Icon,
-      items: [],
-    },
-    {
-      title: "Dashbaord",
-      url: "/dashboard",
-      icon: Navigation2Icon,
-      items: [],
-    },
-    {
-      title: "Calender",
-      url: "/calender",
-      icon: Calendar,
-      items: [],
-    },
-
   ],
   projects: [
     {
