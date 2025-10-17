@@ -3,42 +3,36 @@
 import * as React from "react"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Calendar,
   Command,
   Contact,
-  Frame,
+
   GalleryVerticalEnd,
   Headset,
-  Map,
-  Navigation,
-  Navigation2,
   Navigation2Icon,
-  PieChart,
-  Plus,
-  Settings2,
   SquareTerminal,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenuButton,
+  SidebarMenuSubButton,
   SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Button } from "./ui/button"
 import Image from "next/image"
 import { useSelector } from "react-redux"
 import { RootStoreType } from "@/app/store"
+import { useRouter } from "next/navigation"
+import { useChatStore } from "@/app/store/zustand-stores/useChatStore"
 
-// This is sample data.
+
 const data = {
   user: {
     name: "osagie",
@@ -62,7 +56,7 @@ const data = {
       plan: "Free",
     },
   ],
-  needHelp:[
+  needHelp: [
     {
       title: "Support",
       url: "#",
@@ -115,64 +109,84 @@ const data = {
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Frame,
+      // icon: Frame,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: PieChart,
+      // icon: PieChart,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
     {
       name: "Vechtron 001 Bonnet of.....",
       url: "#",
-      icon: Map,
+      // icon: Map,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const mobileSidebarState = useSelector((store:RootStoreType)=>{
+  const { updateChatObj } = useChatStore()
+  const router = useRouter()
+
+
+  const mobileSidebarState = useSelector((store: RootStoreType) => {
 
     return store.mobileSidebarSlice
   })
   return (
-    <Sidebar collapsible="icon"   {...props}>
+    <Sidebar collapsible="icon"   {...props} >
       {/* header */}
-   
-<SidebarHeader className={`flex flex-row justify-between items-center ${mobileSidebarState? "lg:justify-center justify-end" : ""}`}>
-{!mobileSidebarState &&  <Image
-    width={40}
-    height={20}
-    alt="logo"
-    src="/logo-two.svg"
-    className="object-contain lg:inline hidden"
-  />}
-  <SidebarTrigger className="-ml-1" />
-</SidebarHeader>
-    
-    {/* content */}
-      <SidebarContent className="">
+
+      <SidebarHeader className={`flex flex-row justify-between items-center ${mobileSidebarState ? "lg:justify-center justify-end" : ""}`}>
+        {!mobileSidebarState && <Image
+          width={40}
+          height={20}
+          alt="logo"
+          src="/logo-two.svg"
+          className="object-contain lg:inline hidden"
+        />}
+        <SidebarTrigger className="-ml-1" />
+      </SidebarHeader>
+
+
+
+      <SidebarMenuButton
+        onClick={() => {
+          updateChatObj([])
+          router.push("/chat")
+        }}
+        className="bg-primary mx-auto flex items-center justify-center w-[90%] cursor-pointer h-[40px] hover:bg-primary hover:opacity-50">
+        {/* <span className="w-full text-white text-center text-bold my-4">New Chat</span> */}
+        <SidebarMenuSubButton
+
+          className="hover:bg-primary">New Chat</SidebarMenuSubButton>
+        {/* New Chat */}
+
+      </SidebarMenuButton>
+      {/* content */}
+      <SidebarContent className="overflow-y-auto hide-scrollbar hide-scrollbar ">
+
         <NavProjects projects={data.projects} />
         <NavMain items={data.navMain} />
         <NavMain items={data.needHelp} />

@@ -3,6 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "@/lib/ReactQueryProvider";
 import ClientProvider from "@/components/ClientProvider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import PersistUserInfoState from "@/components/persist-user-state";
+import { Toaster } from "sonner";
+import Modal from "@/components/modal";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,16 +32,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <ClientProvider>
-      <ReactQueryProvider>
+      <ClientProvider>
+        <ReactQueryProvider>
+          <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string} >
+            <body
+              className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-        {children}
-      </body>
+            >
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <PersistUserInfoState />
+                {children}
+                <Toaster />
+                <Modal />
+              </ThemeProvider>
+            </body>
+
+          </GoogleOAuthProvider>
         </ReactQueryProvider>
-          </ClientProvider>
+      </ClientProvider>
     </html>
   );
 }

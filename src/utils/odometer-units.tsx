@@ -1,0 +1,1 @@
+export const odometerUnits: { value: string, label: string }[] = [{ value: "mi", label: "Miles" }, { value: "km", label: "Kilometers" }]
