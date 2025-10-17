@@ -7,7 +7,7 @@ import { CardTitle } from '../ui/card'
 
 import { Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
-import { GoogleLogin } from '@react-oauth/google'
+
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import Spinner from '@/utils/Spinner'
 import Link from 'next/link'
@@ -252,11 +252,11 @@ const SignupForm = () => {
                             Sign Up with Google
                         </Button>
                         <div className='opacity-0'>
-                            <GoogleLogin
+                            {/* <GoogleLogin
                                 onSuccess={handleSuccess}
                                 onError={handleError}
                                 theme="outline" size="large" text="continue_with" shape="pill"
-                            />
+                            /> */}
                         </div>
                     </article>
 
