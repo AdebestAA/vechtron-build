@@ -29,13 +29,15 @@ const Page = () => {
     const [message, setMessage] = useState<string>("")
     const param: { id: string } = useParams()
     const { id }: { id: string } = param
-
+    const [stream, setStream] = useState<boolean>(false)
+    const [messageToStream, setMessageToStream] = useState<string>()
+    const [streamIndex, setStreamIndex] = useState<number>(0)
 
 
 
     // const [chatState, setChatState] = useState([])
     // const [showChats, setShowChats] = useState(false)
-    const { updateChatObj, addMessage, chatObject } = useChatStore()
+    const { updateChatObj, addMessage, chatObject, streamLastMessage } = useChatStore()
     const containerEndRef = useRef<HTMLDivElement | null>(null)
 
     const { data, isLoading, isError } = useQuery({
@@ -53,8 +55,10 @@ const Page = () => {
 
             if (data.status == "success") {
                 // console.log(data.data.conversation.uuid);
+                setStream(true)
+                setMessageToStream(data.data.message.content)
+                addMessage({ content: "", role: "assistant" })
 
-                addMessage({ content: data.data.message.content, role: "assitant" })
 
 
 
@@ -64,6 +68,7 @@ const Page = () => {
         },
         onError: (error) => {
             console.error(error);
+            alert("something went wrong")
 
 
         },
@@ -78,7 +83,7 @@ const Page = () => {
         })
         console.log(chatObject);
 
-    }, [containerEndRef, chatObject])
+    }, [containerEndRef, chatObject, streamIndex])
     async function postData(formState: string) {
 
         const accessToken = JSON.parse(localStorage.getItem("tokens") as string).accessToken
@@ -113,29 +118,7 @@ const Page = () => {
 
     const handleSendMessage = async () => {
         const accessToken = JSON.parse(localStorage.getItem("tokens") as string).accessToken
-        // const res = await fetch(`${url}/chat/api/v1/chat/stream`, {
-        //     method: "POST",
-        //     headers: {
-        //         // text/event-stream
-        //         "Content-Type": "application/json",
-        //         Authorization: `Bearer ${accessToken}`
-        //     },
-        //     body: JSON.stringify({
-        //         "conversation_id": "490e271e-e871-40ab-bdfa-d8363fd115ed",
-        //         "message": "I'm glad you found it interesting! If you have any more questions or if there's anything else you'd like to know, feel free to ask."
-        //     })
-        // })
 
-
-
-
-
-
-
-
-
-
-        // setShowChats(true)
         if (!message) {
 
 
@@ -147,6 +130,8 @@ const Page = () => {
         // setShowChats(true)
 
     }
+
+
 
 
 
@@ -184,6 +169,72 @@ const Page = () => {
 
     }
 
+
+    useEffect(() => {
+
+
+
+        // Stream the response character by character
+        //   let currentIndex = 0;
+        //   const streamInterval = setInterval(() => {
+        //     if (currentIndex <= fullResponse.length) {
+        //         addMessage({ content: fullResponse.slice(0, currentIndex), role: "assistant" })
+        //       setMessages((prevMessages) =>
+        //         prevMessages.map((msg) =>
+        //           msg.id === messageId
+        //             ? {
+        //                 ...msg,
+        //                 text: fullResponse.slice(0, currentIndex),
+        //                 isStreaming: currentIndex < fullResponse.length,
+        //               }
+        //             : msg
+        //         )
+        //       );
+        //       currentIndex++;
+        //     } else {
+        //       clearInterval(streamInterval);
+        //     }
+        //   }, 30);
+
+        // Cleanup on unmount
+        //   return () => clearInterval(streamInterval);
+    }, [stream])
+
+    useEffect(() => {
+
+        if (!stream) {
+            return
+        }
+        const fullResponse = messageToStream as string
+
+
+
+        console.log(streamIndex);
+
+        const streamInterval = setInterval(() => {
+            streamLastMessage(fullResponse.slice(0, streamIndex))
+            if (streamIndex > fullResponse.length) {
+                setStreamIndex(fullResponse.length)
+            }
+            else {
+
+                setStreamIndex(prev => prev + 5)
+            }
+
+        }, 1)
+
+
+        if (streamIndex === fullResponse.length) {
+
+
+            setStreamIndex(0)
+            setStream(false)
+
+
+        }
+
+        return () => clearInterval(streamInterval)
+    }, [stream, streamIndex])
 
     useEffect(() => {
         // console.log(data?.data?.messages, "messages");

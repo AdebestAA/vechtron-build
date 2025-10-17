@@ -17,6 +17,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
+import { useRouter } from "next/navigation"
 
 // type MenuItem = {
 //   title: string;
@@ -45,6 +46,7 @@ export function NavMain({
     }[]
   }[]
 }) {
+  const router = useRouter()
   return (
     <SidebarGroup>
       {/* <SidebarGroupLabel>Platform</SidebarGroupLabel> */}
@@ -59,7 +61,16 @@ export function NavMain({
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip={item.title}>
+                <SidebarMenuButton
+                  onClick={() => {
+
+                    if (item.title == "calender") {
+                      router.push(item.title.toLocaleLowerCase())
+
+                    }
+                  }
+                  }
+                  tooltip={item.title}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                   {item?.items?.length && item.items.length > 0 ? (

@@ -30,6 +30,7 @@ import Image from "next/image"
 import { useSelector } from "react-redux"
 import { RootStoreType } from "@/app/store"
 import { useRouter } from "next/navigation"
+import { useChatStore } from "@/app/store/zustand-stores/useChatStore"
 
 
 const data = {
@@ -145,8 +146,8 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
+  const { updateChatObj } = useChatStore()
   const router = useRouter()
-
 
 
   const mobileSidebarState = useSelector((store: RootStoreType) => {
@@ -172,11 +173,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarMenuButton
         onClick={() => {
+          updateChatObj([])
           router.push("/chat")
         }}
         className="bg-primary mx-auto flex items-center justify-center w-[90%] cursor-pointer h-[40px] hover:bg-primary hover:opacity-50">
         {/* <span className="w-full text-white text-center text-bold my-4">New Chat</span> */}
-        <SidebarMenuSubButton className="hover:bg-primary">New Chat</SidebarMenuSubButton>
+        <SidebarMenuSubButton
+
+          className="hover:bg-primary">New Chat</SidebarMenuSubButton>
         {/* New Chat */}
 
       </SidebarMenuButton>

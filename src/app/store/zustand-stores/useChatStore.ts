@@ -6,7 +6,7 @@ import { create } from "zustand";
 // chat state
 type chatObjectType = {
     content: string,
-    role: "assitant" | "user",
+    role: "assistant" | "user",
     conversation_id?: number,
     created_at?: string,
     id?: number,
@@ -16,7 +16,8 @@ type chatObjectType = {
 type chatStoreType = {
     chatObject: chatObjectType[],
     updateChatObj: (allMessages: chatObjectType[]) => void,
-    addMessage: (messageObject: chatObjectType) => void
+    addMessage: (messageObject: chatObjectType) => void,
+    streamLastMessage: (messageText: string) => void
 
 }
 
@@ -33,6 +34,30 @@ export const useChatStore = create<chatStoreType>((set) => ({
         set((state: chatStoreType) => ({
             chatObject: [...state.chatObject, messageObject]
         }))
+    },
+    streamLastMessage: (messageText: string) => {
+
+        set((state) => {
+            console.log(messageText);
+            const streamLastMessage = state.chatObject.map((item, index) => {
+                if (index == state.chatObject.length - 1) {
+                    // console.log(item.content + " " + messageText);
+
+                    return {
+                        ...item,
+                        content: messageText
+                    }
+                }
+                else {
+                    return item
+                }
+            })
+
+            return {
+                chatObject: streamLastMessage
+            }
+        })
+
     }
 
 }))

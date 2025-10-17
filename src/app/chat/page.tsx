@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
     SidebarInset,
     SidebarProvider
@@ -53,7 +53,11 @@ const Page = () => {
     const [message, setMessage] = useState<string>("")
     // const [chatState, setChatState] = useState([])
     const [showChats, setShowChats] = useState(false)
-    const { addMessage, chatObject } = useChatStore()
+    const { addMessage, chatObject, streamLastMessage, updateChatObj } = useChatStore()
+    const [stream, setStream] = useState<boolean>(false)
+    const [messageToStream, setMessageToStream] = useState<string>()
+    const [streamIndex, setStreamIndex] = useState<number>(0)
+    const containerEndRef = useRef<HTMLDivElement | null>(null)
 
     const mutation = useMutation({
         mutationFn: postData,
@@ -61,7 +65,10 @@ const Page = () => {
             console.log(data);
             if (data.status == "success") {
                 console.log(data.data.conversation.uuid);
-                addMessage({ content: data.data.message.content, role: "assitant" })
+                setMessageToStream(data.data.message.content)
+                setStream(true)
+                addMessage({ content: "", role: "assistant" })
+                // addMessage()
                 window.history.pushState({}, "", `/chat/${data.data.conversation.uuid}`)
 
             }
@@ -73,6 +80,51 @@ const Page = () => {
         },
     })
 
+
+    useEffect(() => {
+        if (!containerEndRef.current) {
+            return
+        }
+        containerEndRef.current?.scrollIntoView({
+            behavior: "smooth"
+        })
+        console.log(chatObject);
+
+    }, [containerEndRef, chatObject, streamIndex])
+
+    useEffect(() => {
+
+        if (!stream || !messageToStream) {
+            return
+        }
+
+        const fullResponse = messageToStream as string
+
+        if (streamIndex === fullResponse.length) {
+            setStreamIndex(0)
+            setStream(false)
+            return
+
+        }
+
+
+        console.log(streamIndex);
+
+        const streamInterval = setInterval(() => {
+            streamLastMessage(fullResponse.slice(0, streamIndex))
+            if (streamIndex > fullResponse.length) {
+                setStreamIndex(fullResponse.length)
+            }
+            else {
+
+                setStreamIndex(prev => prev + 5)
+            }
+
+        }, 1)
+
+
+        return () => clearInterval(streamInterval)
+    }, [stream, streamIndex, messageToStream])
 
 
 
@@ -246,6 +298,11 @@ const Page = () => {
                                                 >{item.content}</ReactMarkdown>
 
                                             </aside>
+
+                                            <div ref={containerEndRef}>
+
+                                            </div>
+
 
                                         </div>
                                     })}

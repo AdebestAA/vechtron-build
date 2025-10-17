@@ -3,9 +3,9 @@ import React from 'react'
 
 const MaintananceSchedule = () => {
   return (
-    <div className='overflow-y-scroll'>
+    <div className=''>
 
-        <ScheduleCalendar/>
+      <ScheduleCalendar />
     </div>
   )
 }
