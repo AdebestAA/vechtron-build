@@ -47,7 +47,8 @@ interface typeFormState<S> {
 const url = process.env.NEXT_PUBLIC_API_URL as string
 const postData = async (formState: typeFormState<string>) => {
     if (!url) {
-        alert("end point not available")
+        console.log("end point not available");
+        // alert("end point not available")
         return
     }
     const res = await fetch(`${url}/api/v1/auth/account/login`, {

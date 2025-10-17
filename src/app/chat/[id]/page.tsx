@@ -92,7 +92,9 @@ const Page = () => {
 
 
         if (!url) {
-            alert("end point not available")
+            // alert("end point not available")
+            console.log("endpoint unavailable");
+
             return
         }
 

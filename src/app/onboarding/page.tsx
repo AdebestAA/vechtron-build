@@ -13,14 +13,6 @@ const Page = () => {
 
     const { value, } = useOnBoardingSlideState()
 
-    useEffect(() => {
-        console.log(value);
-
-    }, [value])
-    // const { openModal } = useModalStore()
-    // useEffect(() => {
-    //     openModal("you have created a vehicle successfully")
-    // }, [])
 
     return (
         <div className='w-screen overflow-x-hidden'

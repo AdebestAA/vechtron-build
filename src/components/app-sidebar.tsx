@@ -35,8 +35,8 @@ import { useChatStore } from "@/app/store/zustand-stores/useChatStore"
 
 const data = {
   user: {
-    name: "osagie",
-    email: "edosaosagieev",
+    name: "John Doe",
+    email: "johndoe@gmail.com",
     avatar: "/white.jpg",
   },
   teams: [
@@ -92,14 +92,20 @@ const data = {
       ],
     },
     {
-      title: "Navigation",
-      url: "#",
+      title: "Chat",
+      url: "/chat",
+      icon: Navigation2Icon,
+      items: [],
+    },
+    {
+      title: "Dashbaord",
+      url: "/dashboard",
       icon: Navigation2Icon,
       items: [],
     },
     {
       title: "Calender",
-      url: "#",
+      url: "/calender",
       icon: Calendar,
       items: [],
     },

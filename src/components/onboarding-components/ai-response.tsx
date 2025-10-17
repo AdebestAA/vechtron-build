@@ -73,7 +73,9 @@ const postData = async (formState: OnBoardingFormType) => {
 
 
     if (!url) {
-        alert("end point not available")
+        // alert("end point not available")
+        console.log("end point not available");
+
         return
     }
 

@@ -92,12 +92,14 @@ const AddVehicleWithAi = () => {
 
         const accessToken = JSON.parse(localStorage.getItem("tokens") as string)?.accessToken
         const refreshToken = JSON.parse(localStorage.getItem("tokens") as string)?.refreshToken
-        console.log(refreshToken);
-        console.log(accessToken);
+        // console.log(refreshToken);
+        // console.log(accessToken);
 
 
         if (!url) {
-            alert("end point not available")
+            // alert("end point not available")
+            console.log("end point not available");
+
             return
         }
         mutation.mutate(userInput)

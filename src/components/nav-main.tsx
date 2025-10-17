@@ -63,9 +63,12 @@ export function NavMain({
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton
                   onClick={() => {
+                    if (item.url) {
+                      router.push(item.url)
+                      return
 
+                    }
                     if (item.title == "calender") {
-                      router.push(item.title.toLocaleLowerCase())
 
                     }
                   }

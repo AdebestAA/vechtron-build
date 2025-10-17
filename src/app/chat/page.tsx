@@ -218,7 +218,7 @@ const Page = () => {
                                     <p className='text-[#DDC7DF] md:text-lg'>How can I help you today?</p>
                                 </section>
 
-                                <section className='h-[25%]'>
+                                <section className='h-[20%]'>
 
                                     <div className='focus-visible:bg-[var(--light-one)] rounded-lg h-full ring ring-primary pt-2 pb-4'>
 
@@ -254,7 +254,7 @@ const Page = () => {
 
 
                                     </div>
-                                    <section className='flex md:justify-between justify-evenly  my-2 flex-wrap items-center gap-y-4'>
+                                    <section className='flex md:justify-between justify-between  my-2 flex-wrap items-center gap-y-4'>
                                         {suggestions.map((item, index) => {
 
                                             return <aside key={index} className='bg-primary rounded-lg  py-2 px-2 flex items-center justify-center text-[0.8rem] lg:w-[23%] md:w-[30%] w-[45%] '>
